@@ -12,6 +12,7 @@ Do wyboru były dwa zestawy.
   - Zrobienie Basic HTML and HTML5
   - Zrobienie Basic CSS
   - Skopiwać wynik Basic HTML i CSS do repozytorium na GitHubie
+  - Stworzyć jeszcze jeden plik wedle własnego uznania. Bez JavaScript 
   
 ### Zestaw II :
   - Stworzenie strony o dowolnym, choćby wyimaginowanym studencie
