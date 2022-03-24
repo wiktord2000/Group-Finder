@@ -1,0 +1,40 @@
+
+
+.w-40{
+    width: 40%;
+}
+
+html{
+    height: 100%;
+}
+
+.icon{
+    color: #28a745;
+}
+
+h1{
+    font-family: 'Nunito', sans-serif;
+}
+
+.finish-card{
+    border-left-color: #28a745;
+    border-left-width: 6px;
+    cursor: pointer;
+}
+
+.waiting-card{
+    border-left-color: orange;
+    border-left-width: 6px;
+    cursor: pointer;
+}
+
+/* .card:hover{
+    border-left-color: red;
+}  */
+
+
+/* .card-body{
+    min-height: 67px;
+} */
+
+
