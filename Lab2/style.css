@@ -1,7 +1,7 @@
 
 
-.w-40{
-    width: 40%;
+.w-35{
+    width: 35%;
 }
 
 html{
@@ -17,24 +17,22 @@ h1{
 }
 
 .finish-card{
-    border-left-color: #28a745;
+    border-left-color: lightgrey;
     border-left-width: 6px;
+    filter: brightness(96%);
     cursor: pointer;
 }
+
 
 .waiting-card{
-    border-left-color: orange;
+    border-left-color: lightskyblue;
     border-left-width: 6px;
     cursor: pointer;
 }
 
-/* .card:hover{
-    border-left-color: red;
-}  */
 
-
-/* .card-body{
-    min-height: 67px;
-} */
-
+.delete-icon:hover{
+    font-size: 1.125rem;
+    
+}
 
