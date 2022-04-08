@@ -1,24 +1,60 @@
-import logo from './logo.svg';
+
+import React from 'react';
 import './App.css';
+import { Layout, Menu } from 'antd';
+import { Route, Routes, NavLink } from 'react-router-dom';
+import SearchForStudents from './Pages/SearchForStudents/SearchForStudents';
+import SearchForGroup from './Pages/SearchForGroup/SearchForGroup';
+import YourAds from './Pages/YourAds/YourAds';
+import ManageGroups from './Pages/ManageGroups/ManageGroups';
+const { Header, Content, Footer } = Layout;
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Layout className="layout">
+
+        <Header>
+          
+          {/* Logo */}
+          <div className='logo'>Group Finder</div>
+
+          {/* Menu with bookmarks */}
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+
+            <Menu.Item key='1'><NavLink to={''}>Szukaj studentów</NavLink></Menu.Item>
+            <Menu.Item key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
+            <Menu.Item key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
+            <Menu.Item key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
+            
+          </Menu>
+
+        </Header>
+        
+        {/* Content */}
+        <Content style={{ padding: '30px 50px 0px 50px' }}>
+
+          {/* Changing area */}
+          <div className="side-content">
+
+              <Routes>
+                {/* Paths */}
+                <Route path='' element={<SearchForStudents></SearchForStudents>}/>
+                <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
+                <Route path='/yourAds' element={<YourAds></YourAds>}/>
+                <Route path='/manageGroups' element={<ManageGroups></ManageGroups>}/>
+              </Routes>
+
+          </div>
+
+        </Content>
+
+        {/* Fotter */}
+        <Footer style={{ textAlign: 'center' }}>Created by Wiktor Danielewski ©2022</Footer>
+
+      </Layout>
+    </>
   );
 }
 
