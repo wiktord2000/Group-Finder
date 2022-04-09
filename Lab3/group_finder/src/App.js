@@ -7,6 +7,7 @@ import SearchForStudents from './Pages/SearchForStudents/SearchForStudents';
 import SearchForGroup from './Pages/SearchForGroup/SearchForGroup';
 import YourAds from './Pages/YourAds/YourAds';
 import ManageGroups from './Pages/ManageGroups/ManageGroups';
+import AddAd from './Pages/AddAd/AddAd';
 const { Header, Content, Footer } = Layout;
 
 
@@ -33,7 +34,7 @@ function App() {
         </Header>
         
         {/* Content */}
-        <Content style={{ padding: '30px 50px 0px 50px' }}>
+        <Content style={{ padding: '30px 70px 0px 70px' }}>
 
           {/* Changing area */}
           <div className="side-content">
@@ -44,6 +45,7 @@ function App() {
                 <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
                 <Route path='/yourAds' element={<YourAds></YourAds>}/>
                 <Route path='/manageGroups' element={<ManageGroups></ManageGroups>}/>
+                <Route path='/addAd' element={<AddAd></AddAd>}/>
               </Routes>
 
           </div>
