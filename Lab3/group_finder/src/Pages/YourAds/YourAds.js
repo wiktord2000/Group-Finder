@@ -1,11 +1,16 @@
 import React from 'react';
 import './YourAds.css'
+import { Button } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 function YourAds(){
 
     return(
         <>
-            <h1>This is Your ADs Page!</h1>
+            <div className='button-container'>
+                <Button type="primary"><NavLink to={"/addAd"}>Dodaj ogłoszenie</NavLink></Button>
+            </div>
+            
         </>
     );
 }
