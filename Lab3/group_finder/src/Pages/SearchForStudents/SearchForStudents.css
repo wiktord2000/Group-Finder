@@ -1,0 +1,21 @@
+.cards-container{
+    padding: 0rem 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+}
+
+
+.filters-area{
+
+    width: 100%;
+    height: 60px;
+    margin-bottom: 20px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

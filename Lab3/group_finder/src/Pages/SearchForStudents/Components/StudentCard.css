@@ -1,0 +1,42 @@
+.card{
+    width: 250px;
+    margin: 0.75rem !important;
+}
+
+.ant-card-body{
+    padding-bottom: 15px !important;
+}
+
+.divider-text{
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.description-block{
+    font-size: 0.75rem !important;
+    overflow-y: auto;
+    /* Only Firefox */
+    scrollbar-width: thin;    
+    height: 60px; 
+}
+
+
+.tags-block{
+    height: 28px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.courses-block{
+    font-size: 0.75rem !important;
+    height: 40px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+ul{
+    padding-left: 16px;
+    margin-bottom: 0px !important;
+}
+
+
+
