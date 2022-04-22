@@ -12,7 +12,7 @@ function StudentCard(props){
     return(
         <>
             <Card
-                className="card shadow-sm"
+                className="card shadow"
                 // Buttons section
                 actions={[
                     <SendOutlined key="setting" />,

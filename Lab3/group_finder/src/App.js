@@ -7,7 +7,7 @@ import SearchForStudents from './Pages/SearchForStudents/SearchForStudents';
 import SearchForGroup from './Pages/SearchForGroup/SearchForGroup';
 import YourAds from './Pages/YourAds/YourAds';
 import ManageGroups from './Pages/ManageGroups/ManageGroups';
-import AddAd from './Pages/AddAd/AddAd';
+import AddSingleAd from './Pages/AddSingleAd/AddSingleAd';
 const { Header, Content, Footer } = Layout;
 
 
@@ -45,7 +45,7 @@ function App() {
                 <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
                 <Route path='/yourAds' element={<YourAds></YourAds>}/>
                 <Route path='/manageGroups' element={<ManageGroups></ManageGroups>}/>
-                <Route path='/addAd' element={<AddAd></AddAd>}/>
+                <Route path='/addSingleAd' element={<AddSingleAd></AddSingleAd>}/>
               </Routes>
 
           </div>
