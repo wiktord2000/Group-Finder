@@ -6,3 +6,11 @@
     height: auto;
     background-color: lightgray;
 }
+
+.ant-form-horizontal .ant-form-item-control{
+    min-width: 200px !important;
+}
+
+.delete-icon{
+    margin-top: 10px;
+}

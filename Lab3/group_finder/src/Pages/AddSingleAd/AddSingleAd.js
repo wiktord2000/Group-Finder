@@ -12,11 +12,11 @@ function AddAd(){
     const emailRules = [
         {
             type: 'email',
-            message: 'The input is not valid E-mail!',
+            message: 'Wprowadzono niepoprawny e-mail!',
         },
         {
             required: true,
-            message: 'Please input your E-mail!',
+            message: 'Proszę wprowadź swój e-mail!',
         }
     ];
 
@@ -39,44 +39,48 @@ function AddAd(){
         <>
             <div className='form-container'>
 
-                <Form name="createSingleAdd" labelCol={{span: 7}} wrapperCol={{span: 10}} autoComplete='off' initialValues={{remember: true}}>
+                <Form name="single-ad" labelCol={{span: 7}} wrapperCol={{span: 10}} autoComplete='off' initialValues={{remember: true}}>
 
                     {/* Name  field*/}
-                    <Form.Item label ="Imię" rules = {nameRules}>
+                    <Form.Item name="name" label ="Imię" rules={nameRules}>
                         <Input maxLength={50}></Input>
                     </Form.Item>
 
                     {/* E-mail field */}
-                    <Form.Item label="E-mail" rules={emailRules}>
+                    <Form.Item name="email" label="E-mail" rules={emailRules}>
                         <Input maxLength={50}></Input>
                     </Form.Item>
                           
                     {/* Description field */}
-                    <Form.Item label="Opis">
+                    <Form.Item name="description" label="Opis">
                         <Input.TextArea  maxLength={200}/>
                     </Form.Item>
                     
-                    <Divider>Kursy</Divider>
+                    <Divider>Tagi</Divider>
 
                     <Form.List name="tags">
                             {
                                 (fields, {add, remove}) => (
                                     <>
+                                        {/* Generate added inputs */}
                                         {fields.map(
                                             ({key, name, ...restField}) => {
                                                 return (
-
-                                                    <div key={key} className='d-flex align-items-center justify-content-center mb-2' >
-                                                        <Form.Item style={{marginRight: 5}} className='mb-0 justify-content-center ' {...restField} name={[name, 'tag']} rules={tagRules}>
-                                                            <Input style={{width: '100%'}} placeholder='Wprowadź tag' maxLength={16}/>
+                                                    <div key={key} className='d-flex justify-content-center mb-2' >
+                                                        
+                                                        {/* Tag input */}
+                                                        <Form.Item style={{marginRight: 5}} className='mb-0' {...restField} name={[name, 'tag']} rules={tagRules}>
+                                                            <Input placeholder='Wprowadź tag' maxLength={20}/>
                                                         </Form.Item>
                                                         
-                                                        <MinusCircleOutlined  onClick={() => remove(name)} />
+                                                        {/* Button to delete tag */}
+                                                        <MinusCircleOutlined  className='delete-icon' onClick={() => remove(name)} />
                                                     </div>  
                                                 );
                                             }
                                         )
                                         }
+
                                         {/* Add tag button */}
                                         <Form.Item className='d-flex justify-content-center'>
                                             <Button className='d-flex align-items-center justify-content-center' type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
@@ -86,8 +90,6 @@ function AddAd(){
                                     </>
                                 )
                             }
-
-                            
                     </Form.List>
 
                     {/* Submit button */}
