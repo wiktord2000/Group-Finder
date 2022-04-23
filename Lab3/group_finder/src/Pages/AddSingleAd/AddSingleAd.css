@@ -2,9 +2,9 @@
 
     width: 75%;
     margin: auto;
-    padding: 50px 100px;
+    padding: 25px 100px;
     height: auto;
-    background-color: lightgray;
+    background-color: #f0f2f5;
 }
 
 .ant-form-horizontal .ant-form-item-control{
@@ -13,4 +13,10 @@
 
 .delete-icon{
     margin-top: 10px;
+}
+
+.ant-form-item-control-input-content{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
 }
