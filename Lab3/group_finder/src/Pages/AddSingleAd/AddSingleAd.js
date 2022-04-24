@@ -2,8 +2,7 @@ import './AddSingleAd.css';
 import { Input, Form, Button, Space, Divider} from 'antd';
 import React, { useState} from 'react';
 import { PlusOutlined , MinusCircleOutlined } from '@ant-design/icons';
-
-
+import { SingleAd } from '../../Models/SingleAd';
 
 function AddAd(){
 
@@ -41,12 +40,14 @@ function AddAd(){
         }
     ];
 
+    const onFinish = (values) => { console.log(values); }
+
 
     return(
         <>
             <div className='form-container shadow'>
                 <Divider  style={{fontSize: '20px', marginBottom: 40}}>Uzupełnij ogłoszenie</Divider>
-                <Form name="single-ad" labelCol={{span: 7}} wrapperCol={{span: 10}} autoComplete='off' initialValues={{remember: true}}>
+                <Form name="single-ad" labelCol={{span: 7}} wrapperCol={{span: 10}} autoComplete='off' initialValues={{remember: true}} onFinish = {onFinish}>
 
                     {/* Name  field*/}
                     <Form.Item name="name" label ="Imię" rules={nameRules}>

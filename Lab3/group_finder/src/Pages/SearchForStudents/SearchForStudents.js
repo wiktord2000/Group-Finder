@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import './SearchForStudents.css'
 import StudentCard from './Components/StudentCard';
 import { Input, Select } from 'antd';
+import { SingleAd } from '../../Models/SingleAd';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -9,12 +10,15 @@ const { Option } = Select;
 function SearchForStudents(){
 
     const [studentsList, setStudentsList] = useState([
-                                {name: "Wiktor Danielewski", tags: ["Java", "Python"], description: "Jestem studentem 3 roku", courses: ["PEA", "SDiZO"]},
-                                {name: "Szymon Kos", tags: ["JavaScript", "FrontEnd", "Python"], description: "Jestem studentem 2 roku", courses: ["GK", "PEA", "SDiZO"]},
-                                {name: "Tomasz Zawadzki", tags: ["C/C++", "C#"], description: "Jestem studentem 3 roku na PWr", courses: ["SDiZO"]},
-                                {name: "Wiktor Danielewski", tags: ["Java", "Python"], description: "Jestem studentem 3 roku", courses: ["PEA", "SDiZO"]},
-                                {name: "Szymon Kos", tags: ["JavaScript", "FrontEnd", "Python"], description: "Jestem studentem 2 roku", courses: ["GK", "PEA", "SDiZO"]},
-                                {name: "Tomasz Zawadzki", tags: ["C/C++", "C#"], description: "Jestem studentem 3 roku na PWr", courses: ["SDiZO"]}
+                                new SingleAd(0, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"]),
+                                new SingleAd(1, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"]),
+                                new SingleAd(2, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"])
+                                // {name: "Wiktor Danielewski", tags: ["Java", "Python"], description: "Jestem studentem 3 roku", courses: ["PEA", "SDiZO"]},
+                                // {name: "Szymon Kos", tags: ["JavaScript", "FrontEnd", "Python"], description: "Jestem studentem 2 roku", courses: ["GK", "PEA", "SDiZO"]},
+                                // {name: "Tomasz Zawadzki", tags: ["C/C++", "C#"], description: "Jestem studentem 3 roku na PWr", courses: ["SDiZO"]},
+                                // {name: "Wiktor Danielewski", tags: ["Java", "Python"], description: "Jestem studentem 3 roku", courses: ["PEA", "SDiZO"]},
+                                // {name: "Szymon Kos", tags: ["JavaScript", "FrontEnd", "Python"], description: "Jestem studentem 2 roku", courses: ["GK", "PEA", "SDiZO"]},
+                                // {name: "Tomasz Zawadzki", tags: ["C/C++", "C#"], description: "Jestem studentem 3 roku na PWr", courses: ["SDiZO"]}
                             ]);
 
     const [dispStudentsList, setDispStudentsList] = useState([...studentsList]);
@@ -25,6 +29,8 @@ function SearchForStudents(){
 
 
     const handleOnSearch = function(value){ 
+
+        console.log(studentsList[2]);
         
         // If empty string - fill all list
         if(value === ""){
