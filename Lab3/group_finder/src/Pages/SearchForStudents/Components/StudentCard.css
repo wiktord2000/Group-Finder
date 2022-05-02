@@ -1,3 +1,4 @@
+
 .card{
     width: 250px;
     margin: 0.75rem !important;
@@ -33,10 +34,16 @@
     scrollbar-width: thin;
 }
 
+svg { vertical-align: baseline; }
+
 ul{
     padding-left: 16px;
     margin-bottom: 0px !important;
 }
-
+.ant-message {
+    position: absolute;
+    bottom: 30px !important;
+    top: unset !important;
+  }
 
 

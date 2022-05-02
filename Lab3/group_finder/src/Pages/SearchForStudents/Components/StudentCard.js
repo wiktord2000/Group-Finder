@@ -1,13 +1,39 @@
 import React from "react";
+import { useState } from "react";
 import './StudentCard.css'
-
-import { Card, Avatar, Tag , Divider } from 'antd';
+import { Card, Avatar, Tag , Divider, Modal, Button, Form, Input, message} from 'antd';
 import { StarOutlined, UserOutlined, SendOutlined } from '@ant-design/icons';
+
 
 const { Meta } = Card;
 
 
-function StudentCard(props){
+
+function StudentCard(props){    
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+    
+    const onFinishForm = (values) => {
+        console.log('Success:', values);
+        setIsModalVisible(false);
+        message.success('Wiadomość została wysłana!', 1.5);
+        
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const messageRules = [
+        {
+            required: true,
+            message: 'Proszę uzupełnij wiadomość!',
+        }
+    ]
 
     return(
         <>
@@ -15,10 +41,11 @@ function StudentCard(props){
                 className="card shadow"
                 // Buttons section
                 actions={[
-                    <SendOutlined key="setting" />,
-                    <StarOutlined key="edit" />,
-                    <UserOutlined key="ellipsis" />
+                    <SendOutlined onClick={showModal} key="send" />,
+                    <StarOutlined key="follow" />,
+                    <UserOutlined key="profile" />
                 ]}
+                hoverable
             >
                 
                 {/* Header section */}
@@ -52,8 +79,35 @@ function StudentCard(props){
                         {props.courses.map((courseName, i ) => {return <li key={i}>{courseName}</li>})}
                     </ul>
                 </div>
-
             </Card>
+
+            {/* Modal when send button click */}
+                <Modal  bodyStyle={{paddingBottom: 5}} title="Wiadomość" 
+                        centered 
+                        visible={isModalVisible} 
+                        onCancel={handleCancel}
+                        footer= {[
+                            <Button key="back" shape="round" onClick={handleCancel}>
+                                Powrót
+                            </Button>,
+                            <Button form="message-form" key="submit" type="primary" htmlType="submit" shape="round" icon={<SendOutlined/>}>
+                                Wyślij
+                            </Button>
+                        ]}
+                        >
+                        <Form   id ="message-form"
+                                name="message-form"
+                                onFinish={onFinishForm}
+                                autoComplete="off"
+                                >
+                            <Form.Item  rules={messageRules}
+                                        name="message"
+                                    >
+                                <Input.TextArea  allowClear id="message-area"></Input.TextArea>
+                            </Form.Item>
+
+                        </Form>
+                </Modal>
         </>
     );
 }

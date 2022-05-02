@@ -1,7 +1,7 @@
 import './AddSingleAd.css';
 import { Input, Form, Button, Space, Divider} from 'antd';
 import React, { useState} from 'react';
-import { PlusOutlined , MinusCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined , CloseOutlined } from '@ant-design/icons';
 import { SingleAd } from '../../Models/SingleAd';
 
 function AddAd(){
@@ -83,7 +83,7 @@ function AddAd(){
                                                         </Form.Item>
                                                         
                                                         {/* Button to delete tag */}
-                                                        <MinusCircleOutlined  className='delete-icon' onClick={() => remove(name)} />
+                                                        <CloseOutlined  className='delete-icon' onClick={() => remove(name)} />
                                                     </div>  
                                                 );
                                             }
@@ -123,7 +123,7 @@ function AddAd(){
                                                         </Form.Item>
                                                         
                                                         {/* Button to delete tag */}
-                                                        <MinusCircleOutlined  className='delete-icon' onClick={() => remove(name)} />
+                                                        <CloseOutlined  className='delete-icon' onClick={() => remove(name)} />
                                                     </div>  
                                                 );
                                             }
