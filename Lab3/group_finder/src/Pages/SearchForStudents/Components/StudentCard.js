@@ -50,11 +50,11 @@ function StudentCard(props){
                 
                 {/* Header section */}
                 <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                avatar={<Avatar src="https://picsum.photos/70/100?random=1"/>}
                 title= {props.name} 
                 description=""
                 />
-
                 <Divider style={{marginBottom: 5, marginTop: 15}}></Divider>
                 {/* Tags section */}
                 <div className="tags-block">
@@ -63,7 +63,7 @@ function StudentCard(props){
                                                                 
                 </div>
 
-                <Divider style={{marginTop:0, marginBottom:5}} orientation="left" orientationMargin={0}><span className="divider-text">O mnie</span></Divider>
+                <Divider style={{marginTop:0, marginBottom:5}} orientation="left" orientationMargin={0}><span className="divider-text">Opis</span></Divider>
                 
                 {/* Description section */}
                 <div className="description-block">
