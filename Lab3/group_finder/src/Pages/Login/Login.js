@@ -60,7 +60,7 @@ function Login(){
                         </Form.Item>
                         
                         {/* Password*/}
-                        <Form.Item label="Password" name="password" rules={passwordRules}>
+                        <Form.Item label="Hasło" name="password" rules={passwordRules}>
                             <Input.Password />
                         </Form.Item>
 
