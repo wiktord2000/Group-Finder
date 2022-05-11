@@ -3,7 +3,7 @@ import { useState } from "react";
 import './StudentCard.css'
 import { Card, Avatar, Tag , Divider, Modal, Button, Form, Input, message} from 'antd';
 import { StarOutlined, UserOutlined, SendOutlined } from '@ant-design/icons';
-
+import ApiService from "../../../Services/ApiService";
 
 const { Meta } = Card;
 
@@ -35,6 +35,8 @@ function StudentCard(props){
         }
     ]
 
+
+
     return(
         <>
             <Card
@@ -42,7 +44,7 @@ function StudentCard(props){
                 // Buttons section
                 actions={[
                     <SendOutlined onClick={showModal} key="send" />,
-                    <StarOutlined key="follow" />,
+                    <StarOutlined onClick={ApiService.getSingleAds} key="follow" />,
                     <UserOutlined key="profile" />
                 ]}
                 hoverable
@@ -51,8 +53,8 @@ function StudentCard(props){
                 {/* Header section */}
                 <Meta
                 // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                avatar={<Avatar src="https://picsum.photos/70/100?random=1"/>}
-                title= {props.name} 
+                avatar={<Avatar src={props.imgURL}/>}
+                title= {props.userName} 
                 description=""
                 />
                 <Divider style={{marginBottom: 5, marginTop: 15}}></Divider>

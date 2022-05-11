@@ -1,25 +1,59 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Login.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
+import ApiService from '../../Services/ApiService';
+import { useLoginContext } from '../../Providers/LoginProvider';
 
 
-function Login(){
+export default function Login(){
+
+    const { loggedAccount, setLoggedAccount} = useLoginContext();
+
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        // console.log('Success:', values);
+
+        ApiService.getAccounts()
+        .then( result =>
+            result.json()
+        )
+        .then( data => {
+            for(let account of data){
+
+                if((account.email === values.email) && (account.password === values.password))
+                {
+                    console.log("Zalogowano");
+                    setLoggedAccount(account.id);
+                    return;
+                }
+            }
+            throw("The accound doesn't exist");
+        })
+        .catch(
+            e => console.error(e)
+        )
+        
+        console.log(loggedAccount);
     };
     
+
+
+
+
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+
+
+    // Rules for form
     const passwordRules = [
         {
             required: true,
             message: 'Proszę wprowadź hasło!'
         }
     ]
-
     const emailRules = [
         {
             type: 'email',
@@ -30,6 +64,8 @@ function Login(){
             message: 'Proszę wprowadź swój e-mail!',
         }
     ];
+
+
 
     return(
         <>
@@ -73,6 +109,6 @@ function Login(){
             </Row>
         </>
     )
-}
 
-export default Login;
+
+};

@@ -1,27 +1,38 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import './SearchForStudents.css'
 import StudentCard from './Components/StudentCard';
 import { Input, Select } from 'antd';
 import { SingleAd } from '../../Models/SingleAd';
+import ApiService from '../../Services/ApiService';
 
 const { Search } = Input;
 const { Option } = Select;
 
 function SearchForStudents(){
 
-    const [studentsList, setStudentsList] = useState([
-                                new SingleAd(0, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"]),
-                                new SingleAd(1, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"]),
-                                new SingleAd(2, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"])
-                                // {name: "Wiktor Danielewski", tags: ["Java", "Python"], description: "Jestem studentem 3 roku", courses: ["PEA", "SDiZO"]},
-                                // {name: "Szymon Kos", tags: ["JavaScript", "FrontEnd", "Python"], description: "Jestem studentem 2 roku", courses: ["GK", "PEA", "SDiZO"]},
-                                // {name: "Tomasz Zawadzki", tags: ["C/C++", "C#"], description: "Jestem studentem 3 roku na PWr", courses: ["SDiZO"]},
-                                // {name: "Wiktor Danielewski", tags: ["Java", "Python"], description: "Jestem studentem 3 roku", courses: ["PEA", "SDiZO"]},
-                                // {name: "Szymon Kos", tags: ["JavaScript", "FrontEnd", "Python"], description: "Jestem studentem 2 roku", courses: ["GK", "PEA", "SDiZO"]},
-                                // {name: "Tomasz Zawadzki", tags: ["C/C++", "C#"], description: "Jestem studentem 3 roku na PWr", courses: ["SDiZO"]}
-                            ]);
+    // const [studentsList, setStudentsList] = useState([
+    //                             new SingleAd(0, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"], ''),
+    //                             new SingleAd(1, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"], ''),
+    //                             new SingleAd(2, "Wiktor Danielewski","wiktord2000@wp.pl","Jestem studentem 3 roku", ["Java", "Python"], ["PEA", "SDiZO"], '')
+    //                         ]);
 
-    const [dispStudentsList, setDispStudentsList] = useState([...studentsList]);
+    const [studentsList, setStudentsList] = useState([]);
+    const [dispStudentsList, setDispStudentsList] = useState([]);
+
+    useEffect(() => {
+        //Runs only on the first render
+        ApiService.getSingleAds()
+        .then(response => response.json())
+        .then(data => {
+            setStudentsList(data);
+            setDispStudentsList(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
+
+    
 
     const [filterBy, setFilterBy] = useState('tags');
 
@@ -29,8 +40,6 @@ function SearchForStudents(){
 
 
     const handleOnSearch = function(value){ 
-
-        console.log(studentsList[2]);
         
         // If empty string - fill all list
         if(value === ""){
@@ -108,16 +117,17 @@ function SearchForStudents(){
 
             <div className='cards-container'>
                 {dispStudentsList.map((student, index) => {
+                    console.log(student);
                     return (
-                        <StudentCard
-                            key={index}
-                            name={student.name}
+                        <StudentCard 
+                            key={student.id}
+                            userName={student.userName}
                             tags={student.tags} 
                             description={student.description}
                             courses={student.courses}
+                            imgURL={student.imgURL}
                         />);
                 })}
-
             </div>
         </>
     );
