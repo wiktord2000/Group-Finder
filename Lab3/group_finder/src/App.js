@@ -1,7 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
-import { Layout} from 'antd';
+import { Layout, Menu} from 'antd';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import SearchForStudents from './Pages/SearchForStudents/SearchForStudents';
 import SearchForGroup from './Pages/SearchForGroup/SearchForGroup';
@@ -10,65 +10,52 @@ import ManageGroups from './Pages/ManageGroups/ManageGroups';
 import AddSingleAd from './Pages/AddSingleAd/AddSingleAd';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
-import { LoginProvider, useLoginContext } from './Providers/LoginProvider';
-import Menu from './Components/MenuComponent';
-import MenuComponent from './Components/MenuComponent';
+import { useLoginContext } from './Providers/LoginProvider';
 
 const { Header, Content, Footer } = Layout;
 
 
 function App() {
 
-  // const [logged, setLogged] = useLoginContext();
-  const [logged, setLogged] = useState(false);
+  // get access to LoginContext
+  const { loggedAccount, setLoggedAccount} = useLoginContext();
 
-  // let logoutUser = () => {
-  //   setLoggedAccount(-1);
-  // }
-
-  // useEffect(()=>{
-
-  //   console.log("Im")
-  //   if(loggedAccount === -1) setLogged(true);
-  //   else setLogged(false);
-  // }, [loggedAccount])
 
   return (
     <>
-      <LoginProvider>
-
         <Layout className="layout">
+
+          {/* ----------------------------------------------------------Navigation bar------------------------------------------------------------------ */}
           <Header>
             
             {/* Logo */}
             <div className='logo'><NavLink style={isActive => ({color: isActive && "white"})} to={''}>Group Finder</NavLink></div>
 
-            
-            {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['6']}>
+            {/* Menu */}
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
 
               <Menu.Item  key='1'><NavLink to={''}>Szukaj studentów</NavLink></Menu.Item>
               <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
               
-              {logged? 
-              
+              {(loggedAccount !== -1)? 
               <>
-                <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
-                <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
-                <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logoutUser}><NavLink to={''}>Wyloguj</NavLink></Menu.Item>
+                  <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
+                  <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
+                  <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={ () => setLoggedAccount(-1) }><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
               </>
-              
               :
               <>
-                <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'}>Zaloguj</NavLink></Menu.Item>
-                <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Zarejestruj</NavLink></Menu.Item>
+                  <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'} >Zaloguj</NavLink></Menu.Item>
+                  <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Zarejestruj</NavLink></Menu.Item>
               </>
               }
-            </Menu> */}
-            <MenuComponent/>
 
-          </Header>
-          
-          {/* Content */}
+            </Menu>
+
+          </Header>    
+
+
+          {/* ----------------------------------------------------------------Content--------------------------------------------------------------------- */}
           <Content style={{ padding: '30px 70px 0px 70px' }}>
 
             {/* Changing area */}
@@ -90,11 +77,11 @@ function App() {
 
           </Content>
 
-          {/* Fotter */}
+
+          {/* --------------------------------------------------------------------------Fotter-------------------------------------------------------------------*/}
           <Footer style={{ textAlign: 'center' }}>Created by Wiktor Danielewski ©2022</Footer>
 
         </Layout>
-      </LoginProvider>
     </>
   );
   

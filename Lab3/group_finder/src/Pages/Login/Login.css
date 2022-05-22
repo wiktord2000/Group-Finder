@@ -3,3 +3,8 @@
     background-color: #f0f2f5 !important;
     padding: 2rem !important;
 }
+
+#error-message{
+    color: red;
+    text-align: center;
+}

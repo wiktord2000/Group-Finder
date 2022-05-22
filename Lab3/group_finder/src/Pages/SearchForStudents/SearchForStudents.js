@@ -117,7 +117,6 @@ function SearchForStudents(){
 
             <div className='cards-container'>
                 {dispStudentsList.map((student, index) => {
-                    console.log(student);
                     return (
                         <StudentCard 
                             key={student.id}

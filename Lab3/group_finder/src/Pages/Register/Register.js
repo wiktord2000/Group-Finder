@@ -1,16 +1,32 @@
 import React from 'react'
 import './Register.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
-
+import ApiService from '../../Services/ApiService';
+import { Account } from '../../Models/Account';
+import { useNavigate } from "react-router-dom";
 
 
 function Register(){
 
+    let navigate = useNavigate();
+
     const onFinish = (values) => {
-        if(values.password !== values.password2) console.log("Hasła się różnią")
-        console.log('Success:', values);
+
+        // If passwords aren't same
+        if(values.password !== values.password2){
+            document.getElementById('error-message').innerHTML = "Wprowadzone hasła się różnią!";
+        }
+        else{
+            // Add account
+            ApiService.postAccount(new Account( null , values.email, values.password, values.userName, null, null));
+            // Navigate to login
+            navigate('/login');
+        }
+        
     };
-    
+
+
+    // Rules
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -37,8 +53,9 @@ function Register(){
         {
             required: true,
             message: 'Proszę wprowadź nazwę użytkownika!'
-        }
+        },
     ]
+
 
     return(
         <>
@@ -69,7 +86,7 @@ function Register(){
                         </Form.Item>
 
                         {/* UserName*/}
-                        <Form.Item label="Nazwa użytkownika" name="user" rules={userRules}>
+                        <Form.Item label="Nazwa użytkownika" name="userName" rules={userRules}>
                             <Input />
                         </Form.Item>
                         
@@ -82,6 +99,9 @@ function Register(){
                         <Form.Item label="Powtórz hasło" name="password2" rules={passwordRules}>
                             <Input.Password />
                         </Form.Item>
+                        
+                        {/* Error message */}
+                        <div id='error-message'></div>
 
                         {/* Submit button */}
                         <Form.Item style={{marginTop: 40}} wrapperCol={{span: 24 }}>

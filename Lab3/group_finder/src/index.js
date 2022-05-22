@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import 'antd/dist/antd.css';
 import { BrowserRouter} from 'react-router-dom';
+import { LoginProvider } from './Providers/LoginProvider';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <LoginProvider>
+        <App />
+      </LoginProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

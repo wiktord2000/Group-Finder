@@ -1,17 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './Login.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
 import ApiService from '../../Services/ApiService';
 import { useLoginContext } from '../../Providers/LoginProvider';
-
+import { useNavigate } from "react-router-dom";
 
 export default function Login(){
 
     const { loggedAccount, setLoggedAccount} = useLoginContext();
-
+    const navigate = useNavigate();
 
     const onFinish = (values) => {
-        // console.log('Success:', values);
 
         ApiService.getAccounts()
         .then( result =>
@@ -23,28 +22,29 @@ export default function Login(){
                 if((account.email === values.email) && (account.password === values.password))
                 {
                     console.log("Zalogowano");
+                    // set account's id
                     setLoggedAccount(account.id);
+                    // redirect to SearchForStudents
+                    navigate("/");
                     return;
                 }
             }
             throw("The accound doesn't exist");
         })
         .catch(
-            e => console.error(e)
+            err => {
+                // print error message at login panel
+                document.getElementById('error-message').innerHTML = 'Wprowadzono niepoprawne dane!'
+                console.error(err)
+            }
         )
         
-        console.log(loggedAccount);
     };
     
-
-
-
-
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
 
 
     // Rules for form
@@ -99,7 +99,7 @@ export default function Login(){
                         <Form.Item label="Hasło" name="password" rules={passwordRules}>
                             <Input.Password />
                         </Form.Item>
-
+                        <div id='error-message'></div>
                         {/* Submit button */}
                         <Form.Item style={{marginTop: 40}} wrapperCol={{span: 24 }}>
                             <Button className='w-25' type="primary" htmlType="submit">Zaloguj</Button>

@@ -15,6 +15,17 @@ const ApiService = {
 
     getPhoto: () => {
         fetch("https://picsum.photos/70/100?random=1").then( res => res.json()).then(data => console.log(data));
+    },
+
+    postAccount: (account) => {
+
+        return fetch(`${apiURL}/accounts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(account)
+        })
     }
 };
 
