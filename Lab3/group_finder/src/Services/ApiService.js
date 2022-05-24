@@ -26,6 +26,17 @@ const ApiService = {
             },
             body: JSON.stringify(account)
         })
+    },
+
+    postSingleAd: (singleAd) => {
+
+        return fetch(`${apiURL}/singleAds`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(singleAd)
+        })
     }
 };
 

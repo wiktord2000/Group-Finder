@@ -3,10 +3,14 @@ import { Input, Form, Button, Space, Divider} from 'antd';
 import React, { useState} from 'react';
 import { PlusOutlined , CloseOutlined } from '@ant-design/icons';
 import { SingleAd } from '../../Models/SingleAd';
+import useLocalStorage from '../../CustomHooks/useLocalStorage';
+import ApiService from '../../Services/ApiService';
+import { useNavigate } from 'react-router-dom';
 
 function AddAd(){
 
-    const [courses, setCourses] = useState([]);
+    const [value, setValue] = useLocalStorage("accountData", "");
+    const navigate = useNavigate();
 
     const emailRules = [
         {
@@ -22,7 +26,14 @@ function AddAd(){
     const nameRules = [
         {
             required: true,
-            message: 'Proszę wprowadź swoje imię',
+            message: 'Proszę wprowadź wyświetlaną nazwę',
+        }
+    ];
+
+    const descriptionRules = [
+        {
+            required: true,
+            message: 'Proszę wprowadź opis',
         }
     ];
 
@@ -40,7 +51,25 @@ function AddAd(){
         }
     ];
 
-    const onFinish = (values) => { console.log(values); }
+
+    // On form finish
+    const onFinish = (values) => { 
+        console.log(values);
+        // If undefine - set empty array
+        if(!values.tags) values.tags = [];
+        if(!values.courses) values.courses = [];
+       
+        const singleAd = new SingleAd(value.id, values.name, value.email, values.description, values.tags, values.courses, value.imgURL);
+        ApiService.postSingleAd(singleAd)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            navigate("/");
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 
 
     return(
@@ -51,8 +80,8 @@ function AddAd(){
 
                     {/* Name  field*/}
                     <Divider>Wyświetlana nazwa <span style={{color: 'red'}}>*</span></Divider>
-                    <Form.Item name="name" rules={nameRules}>
-                        <Input maxLength={50} value="Anonymous"></Input>
+                    <Form.Item name="name" rules={nameRules} initialValue={value.userName}>
+                        <Input maxLength={50}></Input>
                     </Form.Item>
 
                     {/* E-mail field
@@ -62,7 +91,7 @@ function AddAd(){
                           
                     {/* Description field */}
                     <Divider>Opis <span style={{color: 'red'}}>*</span></Divider>
-                    <Form.Item name="description" >
+                    <Form.Item name="description" rules={descriptionRules} >
                         <Input.TextArea  maxLength={200}/>
                     </Form.Item>
                     
@@ -79,7 +108,7 @@ function AddAd(){
                                                 return (
                                                     <div key={key} >
                                                         {/* Tag input */}
-                                                        <Form.Item  className='tag-input' {...restField}  rules={tagRules}>
+                                                        <Form.Item  className='tag-input' {...restField} rules={tagRules}>
                                                             <Input  style={{maxWidth: 200}} placeholder='Wprowadź nazwę tagu' maxLength={20}/>
                                                             {/* Button to delete tag */}
                                                             <CloseOutlined className='delete-icon' onClick={() => remove(name)} />

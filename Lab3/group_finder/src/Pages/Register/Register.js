@@ -75,7 +75,7 @@ function Register(){
                         style={{marginTop: 40}}
                         labelCol={{ span: 6, offset: 1}}
                         wrapperCol={{ span: 10 }}
-                        initialValues={{ remember: true }}
+                        initialValues={{ remember: false }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
