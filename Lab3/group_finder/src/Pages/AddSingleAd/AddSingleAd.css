@@ -7,20 +7,26 @@
     background-color: #f0f2f5;
 }
 
-.ant-form-horizontal .ant-form-item-control{
-    min-width: 200px !important;
+/* Delete icon */
+.delete-icon{
+    margin-left: 8px;
 }
 
-.delete-icon{
-    margin-top: 10px;
-}
 .delete-icon:hover{
     color: red;
-    
 }
 
-.ant-form-item-control-input-content{
+/* Tag input adjust*/
+.tag-input .ant-form-item-control-input-content{
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.button-row .ant-form-item-control-input-content{
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
