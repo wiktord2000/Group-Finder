@@ -104,7 +104,7 @@ function Register(){
                         <div id='error-message'></div>
 
                         {/* Submit button */}
-                        <Form.Item style={{marginTop: 40}} wrapperCol={{span: 24 }}>
+                        <Form.Item className='register-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
                             <Button className='w-25' type="primary" htmlType="submit">Zarejestruj</Button>
                         </Form.Item>
                     </Form>

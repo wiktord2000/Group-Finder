@@ -105,7 +105,7 @@ export default function Login(){
                         </Form.Item>
                         <div id='error-message'></div>
                         {/* Submit button */}
-                        <Form.Item style={{marginTop: 40}} wrapperCol={{span: 24 }}>
+                        <Form.Item className='login-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
                             <Button className='w-25' type="primary" htmlType="submit">Zaloguj</Button>
                         </Form.Item>
                     </Form>
