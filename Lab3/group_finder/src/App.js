@@ -11,15 +11,22 @@ import AddSingleAd from './Pages/AddSingleAd/AddSingleAd';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import { useLoginContext } from './Providers/LoginProvider';
+import useLocalStorage from './CustomHooks/useLocalStorage';
 
 const { Header, Content, Footer } = Layout;
 
 
 function App() {
 
-  // get access to LoginContext
+  // Get access to LoginContext
   const { loggedAccount, setLoggedAccount} = useLoginContext();
 
+  const logoutAccount = () =>{
+    // Update login context
+    setLoggedAccount(-1);
+    // Set null to accountData key in localStorage
+    localStorage.setItem("accountData", null);
+  }
 
   return (
     <>
@@ -37,11 +44,12 @@ function App() {
               <Menu.Item  key='1'><NavLink to={''}>Szukaj studentów</NavLink></Menu.Item>
               <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
               
+              {/* show hidden button when login */}
               {(loggedAccount !== -1)? 
               <>
                   <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
                   <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
-                  <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={ () => setLoggedAccount(-1) }><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
+                  <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logoutAccount}><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
               </>
               :
               <>

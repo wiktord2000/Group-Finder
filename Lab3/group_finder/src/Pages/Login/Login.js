@@ -4,10 +4,13 @@ import { Col, Row, Form, Input, Button, Divider} from 'antd';
 import ApiService from '../../Services/ApiService';
 import { useLoginContext } from '../../Providers/LoginProvider';
 import { useNavigate } from "react-router-dom";
+import useLocalStorage from '../../CustomHooks/useLocalStorage';
 
 export default function Login(){
 
     const { loggedAccount, setLoggedAccount} = useLoginContext();
+    const [ value, setValue ] = useLocalStorage("accountData", null);
+
     const navigate = useNavigate();
 
     const onFinish = (values) => {
@@ -21,9 +24,10 @@ export default function Login(){
 
                 if((account.email === values.email) && (account.password === values.password))
                 {
-                    console.log("Zalogowano");
                     // set account's id
                     setLoggedAccount(account.id);
+                    // save account data in localStorage
+                    setValue(account);
                     // redirect to SearchForStudents
                     navigate("/");
                     return;
