@@ -1,12 +1,13 @@
 
 export class SingleAd{
 
-    constructor(id, name, email, description, tags, courses) {
+    constructor(id, userName, email, description, tags, courses, imgURL) {
       this.id = id;
-      this.name = name;
+      this.userName = userName;
       this.email = email;
       this.description = description;
       this.tags = tags;
       this.courses = courses;
+      this.imgURL = imgURL;
     }
 }

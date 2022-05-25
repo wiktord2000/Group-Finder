@@ -3,10 +3,14 @@ import { Input, Form, Button, Space, Divider} from 'antd';
 import React, { useState} from 'react';
 import { PlusOutlined , CloseOutlined } from '@ant-design/icons';
 import { SingleAd } from '../../Models/SingleAd';
+import useLocalStorage from '../../CustomHooks/useLocalStorage';
+import ApiService from '../../Services/ApiService';
+import { useNavigate } from 'react-router-dom';
 
 function AddAd(){
 
-    const [courses, setCourses] = useState([]);
+    const [value, setValue] = useLocalStorage("accountData", "");
+    const navigate = useNavigate();
 
     const emailRules = [
         {
@@ -22,7 +26,14 @@ function AddAd(){
     const nameRules = [
         {
             required: true,
-            message: 'Proszę wprowadź swoje imię',
+            message: 'Proszę wprowadź wyświetlaną nazwę',
+        }
+    ];
+
+    const descriptionRules = [
+        {
+            required: true,
+            message: 'Proszę wprowadź opis',
         }
     ];
 
@@ -40,27 +51,47 @@ function AddAd(){
         }
     ];
 
-    const onFinish = (values) => { console.log(values); }
+
+    // On form finish
+    const onFinish = (values) => { 
+        console.log(values);
+        // If undefine - set empty array
+        if(!values.tags) values.tags = [];
+        if(!values.courses) values.courses = [];
+       
+        const singleAd = new SingleAd(value.id, values.name, value.email, values.description, values.tags, values.courses, value.imgURL);
+        ApiService.postSingleAd(singleAd)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            navigate("/");
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 
 
     return(
         <>
             <div className='form-container shadow'>
                 <Divider  style={{fontSize: '20px', marginBottom: 40}}>Uzupełnij ogłoszenie</Divider>
-                <Form name="single-ad" labelCol={{span: 7}} wrapperCol={{span: 10}} autoComplete='off' initialValues={{remember: true}} onFinish = {onFinish}>
+                <Form name="single-ad"  wrapperCol={{span: 10, offset: 7}} autoComplete='off' initialValues={{remember: true}} onFinish = {onFinish}>
 
                     {/* Name  field*/}
-                    <Form.Item name="name" label ="Imię" rules={nameRules}>
+                    <Divider>Wyświetlana nazwa <span style={{color: 'red'}}>*</span></Divider>
+                    <Form.Item name="name" rules={nameRules} initialValue={value.userName}>
                         <Input maxLength={50}></Input>
                     </Form.Item>
 
-                    {/* E-mail field */}
+                    {/* E-mail field
                     <Form.Item name="email" label="E-mail" rules={emailRules}>
                         <Input maxLength={50}></Input>
-                    </Form.Item>
+                    </Form.Item> */}
                           
                     {/* Description field */}
-                    <Form.Item name="description" label="Opis">
+                    <Divider>Opis <span style={{color: 'red'}}>*</span></Divider>
+                    <Form.Item name="description" rules={descriptionRules} >
                         <Input.TextArea  maxLength={200}/>
                     </Form.Item>
                     
@@ -75,24 +106,21 @@ function AddAd(){
                                         {fields.map(
                                             ({key, name, ...restField}) => {
                                                 return (
-                                                    <div key={key} className='d-flex justify-content-center mb-2' >
-                                                        
+                                                    <div key={key} >
                                                         {/* Tag input */}
-                                                        <Form.Item style={{marginRight: 5}} className='mb-0' {...restField} name={[name, 'tag']} rules={tagRules}>
-                                                            <Input placeholder='Wprowadź nazwę tagu' maxLength={20}/>
+                                                        <Form.Item  className='tag-input' {...restField} rules={tagRules}>
+                                                            <Input  style={{maxWidth: 200}} placeholder='Wprowadź nazwę tagu' maxLength={20}/>
+                                                            {/* Button to delete tag */}
+                                                            <CloseOutlined className='delete-icon' onClick={() => remove(name)} />
                                                         </Form.Item>
-                                                        
-                                                        {/* Button to delete tag */}
-                                                        <CloseOutlined  className='delete-icon' onClick={() => remove(name)} />
                                                     </div>  
                                                 );
                                             }
                                         )
                                         }
                                         {/* Add tag button */}
-                                        <Form.Item className='d-flex justify-content-center'>
+                                        <Form.Item>
                                             <Button block 
-                                                    className='d-flex align-items-center justify-content-center' 
                                                     type="dashed" 
                                                     onClick={() => add()} 
                                                     icon={<PlusOutlined />}>
@@ -115,24 +143,22 @@ function AddAd(){
                                         {fields.map(
                                             ({key, name, ...restField}) => {
                                                 return (
-                                                    <div key={key} className='d-flex justify-content-center mb-2' >
+                                                    <div key={key} >
                                                         
                                                         {/* Tag input */}
-                                                        <Form.Item style={{marginRight: 5}} className='mb-0' {...restField} name={[name, 'course']} rules={courseRules}>
-                                                            <Input placeholder='Wprowadź nazwę kursu' maxLength={50}/>
+                                                        <Form.Item className='tag-input' {...restField} rules={courseRules}>
+                                                            <Input style={{maxWidth: 200}} placeholder='Wprowadź nazwę kursu' maxLength={50}/>
+                                                            {/* Button to delete tag */}
+                                                            <CloseOutlined  className='delete-icon' onClick={() => remove(name)} />
                                                         </Form.Item>
-                                                        
-                                                        {/* Button to delete tag */}
-                                                        <CloseOutlined  className='delete-icon' onClick={() => remove(name)} />
                                                     </div>  
                                                 );
                                             }
                                         )
                                         }
                                         {/* Add tag button */}
-                                        <Form.Item className='d-flex justify-content-center'>
+                                        <Form.Item>
                                             <Button block 
-                                                    className='d-flex align-items-center justify-content-center' 
                                                     type="dashed" 
                                                     onClick={() => add()}  
                                                     icon={<PlusOutlined />}>
@@ -145,8 +171,8 @@ function AddAd(){
                     </Form.List>
 
                     {/* Submit button */}
-                    <Form.Item className='justify-content-center mt-5'>
-                        <Button className='w-50'  type="primary" htmlType="submit">Opublikuj</Button>
+                    <Form.Item className='button-row'>
+                        <Button style={{minWidth: 100, maxWidth: '50%', width: '100%'}} type="primary" htmlType="submit">Opublikuj</Button>
                     </Form.Item>
                 </Form>
                 

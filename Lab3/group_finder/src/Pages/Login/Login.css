@@ -1,0 +1,15 @@
+
+#form-container{
+    background-color: #f0f2f5 !important;
+    padding: 2rem !important;
+}
+
+#error-message{
+    color: red;
+    text-align: center;
+}
+
+.login-button .ant-form-item-control-input-content{
+    display: flex;
+    justify-content: center;
+}
