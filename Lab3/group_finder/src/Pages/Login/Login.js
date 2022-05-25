@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Login.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
 import ApiService from '../../Services/ApiService';
@@ -6,10 +6,31 @@ import { useLoginContext } from '../../Providers/LoginProvider';
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from '../../CustomHooks/useLocalStorage';
 
+import { logInWithGoogle } from '../../firebase/users';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from '../../firebase/init';
+
+
 export default function Login(){
 
     const { loggedAccount, setLoggedAccount} = useLoginContext();
     const [ value, setValue ] = useLocalStorage("accountData", null);
+
+    const [user, loading, error] = useAuthState(auth);
+
+
+    useEffect(() =>{
+        if(loading) return
+        if(user){
+
+            console.log(user);
+            // navigate("/");
+
+        } 
+        if(error)
+            console.error(error)
+    }, [user, loading])
+
 
     const navigate = useNavigate();
 
@@ -24,12 +45,12 @@ export default function Login(){
 
                 if((account.email === values.email) && (account.password === values.password))
                 {
-                    // set account's id
-                    setLoggedAccount(account.id);
-                    // save account data in localStorage
-                    setValue(account);
-                    // redirect to SearchForStudents
-                    navigate("/");
+                    // // set account's id
+                    // setLoggedAccount(account.id);
+                    // // save account data in localStorage
+                    // setValue(account);
+                    // // redirect to SearchForStudents
+                    // navigate("/");
                     return;
                 }
             }
@@ -107,6 +128,7 @@ export default function Login(){
                         {/* Submit button */}
                         <Form.Item className='login-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
                             <Button className='w-25' type="primary" htmlType="submit">Zaloguj</Button>
+                            <Button className='w-25 mt-2'  htmlType="submit" onClick={logInWithGoogle}>Użyj konta Google</Button>
                         </Form.Item>
                     </Form>
                 </Col>
