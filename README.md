@@ -1,4 +1,4 @@
-#Group Finder
+# Group Finder
 
 
 ## Getting Started with Create React App
