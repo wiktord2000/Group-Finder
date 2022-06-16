@@ -1,9 +1,19 @@
 import React from "react";
 
-const apiURL = 'http://localhost:8000'
+const apiURL = 'https://europe-central2-group-finder-bb64a.cloudfunctions.net'
 
 const ApiService = {
     
+
+    getUsers: () => {
+        // Default get method
+        fetch(`${apiURL}/users`, {method: 'get'}).then(
+            res => JSON.parse(res)
+        ).then(
+            response => console.log(response)
+        );
+    },
+
     getSingleAds: () => {
         // Default get method
         return fetch(`${apiURL}/singleAds`, {method: 'get'});
