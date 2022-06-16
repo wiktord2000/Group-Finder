@@ -1,7 +1,7 @@
 const express = require('express');         // For API methods
 const cors = require('cors');
 const admin = require('firebase-admin');
-
+const functions = require("firebase-functions");
 
 
 
@@ -11,4 +11,24 @@ const app = express();
 app.use(cors({ origin: true }));
 
 
-const functions = require("firebase-functions");
+// Get all singleAds
+app.get('/', async (req, res) => {
+    
+    const snapshot = await admin.firestore().collection('singleAds').get();
+    let singleAds = [];
+
+    snapshot.forEach(doc => {
+        // Parse users and add to array (Be aware that data could be different for any document)
+        let id = doc.id;
+        let data = doc.data();
+        singleAds.push({id, ...data});
+    })
+
+    // Return users
+    res.status(200).send(JSON.stringify(singleAds));
+});
+
+// Exports functions
+exports.singleAdsAPI = functions.region('europe-central2').https.onRequest(app);
+
+

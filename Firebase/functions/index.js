@@ -6,6 +6,7 @@ const singleAds = require('./apiFunctions/singleAds');
 admin.initializeApp();
 
 
-exports.user = users.userAPI;
+exports.users = users.userAPI;
+exports.singleAds = singleAds.singleAdsAPI;
 
 
