@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import { auth } from "../firebase/init";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 // Prepare auth context
 const AuthContext = createContext();
@@ -15,13 +16,16 @@ export function AuthProvider({children}){
 
     // store current logged user
     const [currentUser, setCurrentUser] = useState();
+    const [loading, setLoading] = useState(true);
 
     // we want to make it only once (prepare subscription) - in class component we will do this in constructor
     useEffect( () =>{
 
         // build method executed when user has been changed
         const unsubscribe = auth.onAuthStateChanged(user => {
+            // Note: order is important
             setCurrentUser(user);
+            setLoading(false);
         })
         
         return unsubscribe; 
@@ -29,20 +33,31 @@ export function AuthProvider({children}){
     }, [])
 
     const signUp = (email, password) => {
-        return auth.createUserWithEmailAndPassword(email, password);
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+    const logIn = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+
+    const logOut = () => {
+        return signOut(auth);
     }
 
     // shared values
     const value = {
         currentUser,
-        signUp
+        signUp,
+        logIn,
+        logOut
     }
 
     return(
         <>  
             {/* Define which values will be share with another components */}
             <AuthContext.Provider value = {value}>
-                {children}
+                {/* Give access to app only when user is logged */}
+                {!loading && children}
             </AuthContext.Provider>
         </>
     )
