@@ -4,22 +4,21 @@ import { getAuth } from 'firebase/auth'
 
 
 // Your web app's Firebase configuration
-
 const firebaseConfig = {
 
-    apiKey: "AIzaSyCddYkaltbp_TEL9P15AzGzL0mQKCsKNjQ",
-  
-    authDomain: "group-finder-ec8dc.firebaseapp.com",
-  
-    projectId: "group-finder-ec8dc",
-  
-    storageBucket: "group-finder-ec8dc.appspot.com",
-  
-    messagingSenderId: "353338547005",
-  
-    appId: "1:353338547005:web:bc7d5d91e7d5649e47c354"
-  
-  };
+  apiKey: "AIzaSyBFbsdRAeHZneh_gyzQWrWn3MyVC2xGhnk",
+
+  authDomain: "group-finder-bb64a.firebaseapp.com",
+
+  projectId: "group-finder-bb64a",
+
+  storageBucket: "group-finder-bb64a.appspot.com",
+
+  messagingSenderId: "721411281628",
+
+  appId: "1:721411281628:web:c3936ce719d8e3b4025a19"
+
+};
   
   
 // Initialize Firebase
@@ -28,3 +27,4 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const firestore = getFirestore(app);
 export const auth = getAuth(app);
+export default app; 
