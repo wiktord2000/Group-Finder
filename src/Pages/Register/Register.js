@@ -1,30 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Register.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
-import ApiService from '../../Services/ApiService';
-import { Account } from '../../Models/Account';
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../Providers/AuthContext"
+import { Alert } from 'react-bootstrap';
 
 
 function Register(){
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const onFinish = (values) => {
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const { signUp, currentUser} = useAuthContext();
+
+
+
+    const onFinish = async (values) => {
+
+        // Clear previous errors
+        setErrorMessage('');
 
         // If passwords aren't same
         if(values.password !== values.password2){
-            document.getElementById('error-message').innerHTML = "Wprowadzone hasła się różnią!";
-        }
-        else{
-            // Add account
-            ApiService.postAccount(new Account( null , values.email, values.password, values.userName, null, null));
-            // Navigate to login
-            navigate('/login');
+            setErrorMessage("Wprowadzone hasła się różnią!");
+            return;
         }
         
-    };
+        try{
+            // disable the button when processing
+            setLoading(true);
+            await signUp(values.email, values.password);
+            // Navigate to main page
+            navigate('/');
 
+        } catch(e){
+            console.log(e);
+            setErrorMessage("Nie można utowrzyć tego konta!");
+        }
+        
+        // enable the button
+        setLoading(false);
+    };
 
     // Rules
     const onFinishFailed = (errorInfo) => {
@@ -69,6 +86,9 @@ function Register(){
                         <Divider style={{fontSize: '28px'}}>Rejestracja</Divider>
                     </Col>
 
+                    {/* Error message */}
+                    { errorMessage && <Alert style={{maxWidth: 400 , margin: 'auto' }} variant="danger">{errorMessage}</Alert>}
+
                     {/* Form */}
                     <Form
                         name="login-form"
@@ -99,15 +119,13 @@ function Register(){
                         <Form.Item label="Powtórz hasło" name="password2" rules={passwordRules}>
                             <Input.Password />
                         </Form.Item>
-                        
-                        {/* Error message */}
-                        <div id='error-message'></div>
 
                         {/* Submit button */}
-                        <Form.Item className='register-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
-                            <Button className='w-25' type="primary" htmlType="submit">Zarejestruj</Button>
+                        <Form.Item className='register-button'  style={{marginTop: 40}} wrapperCol={{span: 24 }}>
+                            <Button className='w-25' type="primary" htmlType="submit" disabled={loading}>{loading? "Rejestracja...": "Zarejestruj"}</Button>
                         </Form.Item>
                     </Form>
+                    {currentUser && currentUser.email}
                 </Col>
             </Row>
         </>
