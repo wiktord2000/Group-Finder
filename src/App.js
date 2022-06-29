@@ -1,5 +1,5 @@
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import { Layout, Menu} from 'antd';
 import { Route, Routes, NavLink } from 'react-router-dom';
@@ -10,36 +10,15 @@ import ManageGroups from './Pages/ManageGroups/ManageGroups';
 import AddSingleAd from './Pages/AddSingleAd/AddSingleAd';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
-import { useLoginContext } from './Providers/LoginProvider';
-import useLocalStorage from './CustomHooks/useLocalStorage';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './firebase/init';
+import { useAuthContext } from './Providers/AuthContext';
 
 const { Header, Content, Footer } = Layout;
 
 
 function App() {
 
-  // Get access to LoginContext
-  const { loggedAccount, setLoggedAccount} = useLoginContext();
-
-  // If user have logged in we gets object with user data otherwise null 
-  const [user, loading, error] = useAuthState(auth);
-
-  useEffect(() =>{
-    if(loading) return
-    // if(user) navigate("/");
-    if(error)
-        console.error(error)
-}, [user, loading])
-
-
-  const logoutAccount = () =>{
-    // Update login context
-    setLoggedAccount(-1);
-    // Set null to accountData key in localStorage
-    localStorage.setItem("accountData", null);
-  }
+  // get loggedUser and logOut method
+  const {logOut, currentUser} = useAuthContext();
 
   return (
     <>
@@ -58,11 +37,11 @@ function App() {
               <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
               
               {/* show hidden button when login */}
-              {(user)? 
+              {(currentUser)? 
               <>
                   <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
                   <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
-                  <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logoutAccount}><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
+                  <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logOut}><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
               </>
               :
               <>
@@ -75,7 +54,6 @@ function App() {
 
           </Header>    
 
-
           {/* ----------------------------------------------------------------Content--------------------------------------------------------------------- */}
           <Content style={{ padding: '30px 70px 0px 70px' }}>
 
@@ -84,7 +62,7 @@ function App() {
 
                 <Routes>
                   {/* Paths */}
-                  <Route path='' element={<SearchForStudents></SearchForStudents>}/>
+                  <Route exact path='/' element={<SearchForStudents></SearchForStudents>}/>
                   <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
                   <Route path='/yourAds' element={<YourAds></YourAds>}/>
                   <Route path='/manageGroups' element={<ManageGroups></ManageGroups>}/>
@@ -97,7 +75,6 @@ function App() {
             </div>
 
           </Content>
-
 
           {/* --------------------------------------------------------------------------Fotter-------------------------------------------------------------------*/}
           <Footer style={{ textAlign: 'center' }}>Created by Wiktor Danielewski ©2022</Footer>
