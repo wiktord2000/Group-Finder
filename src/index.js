@@ -4,15 +4,15 @@ import './index.css';
 import App from './App';
 import 'antd/dist/antd.min.css';
 import { BrowserRouter} from 'react-router-dom';
-import { LoginProvider } from './Providers/LoginProvider';
+import { AuthProvider } from './Providers/AuthContext';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoginProvider>
+      <AuthProvider>
         <App />
-      </LoginProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
