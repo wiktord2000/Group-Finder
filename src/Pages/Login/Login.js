@@ -1,71 +1,41 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './Login.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
-import ApiService from '../../Services/ApiService';
-import { useLoginContext } from '../../Providers/LoginProvider';
 import { useNavigate } from "react-router-dom";
-import useLocalStorage from '../../CustomHooks/useLocalStorage';
-
 import { logInWithGoogle } from '../../firebase/users';
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from '../../firebase/init';
+import { useAuthContext } from '../../Providers/AuthContext';
+import { Alert } from 'react-bootstrap';
+
 
 
 export default function Login(){
 
-    const { loggedAccount, setLoggedAccount} = useLoginContext();
-    const [ value, setValue ] = useLocalStorage("accountData", null);
-
-    const [user, loading, error] = useAuthState(auth);
-
-
-    useEffect(() =>{
-        if(loading) return
-        if(user){
-
-            console.log(user);
-            // navigate("/");
-
-        } 
-        if(error)
-            console.error(error)
-    }, [user, loading])
-
-
+    const [ errorMessage, setErrorMessage ] = useState("");
+    const [ loading, setLoading ] = useState(false);
+    const { logIn } = useAuthContext();
     const navigate = useNavigate();
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
 
-        ApiService.getAccounts()
-        .then( result =>
-            result.json()
-        )
-        .then( data => {
-            for(let account of data){
+        // Clear previous errors
+        setErrorMessage('');
 
-                if((account.email === values.email) && (account.password === values.password))
-                {
-                    // // set account's id
-                    // setLoggedAccount(account.id);
-                    // // save account data in localStorage
-                    // setValue(account);
-                    // // redirect to SearchForStudents
-                    // navigate("/");
-                    return;
-                }
-            }
-            throw("The accound doesn't exist");
-        })
-        .catch(
-            err => {
-                // print error message at login panel
-                document.getElementById('error-message').innerHTML = 'Wprowadzono niepoprawne dane!'
-                console.error(err)
-            }
-        )
-        
+        try{
+            // Disable the button when processing
+            setLoading(true);
+            await logIn(values.email, values.password);
+            // Navigate to main page
+            navigate('/');
+
+        } catch(e){
+            console.log(e);
+            setErrorMessage("Wprowadzono niepoprawne dane!");
+        }
+
+        // Enable the button
+        setLoading(false);
     };
-    
+ 
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -91,7 +61,6 @@ export default function Login(){
     ];
 
 
-
     return(
         <>
             <Row style={{marginTop: 20}} justify='center'>
@@ -104,30 +73,33 @@ export default function Login(){
                         <Divider style={{fontSize: '28px'}}>Logowanie</Divider>
                     </Col>
 
+                    {/* Error message */}
+                    { errorMessage && <Alert style={{maxWidth: 400 , margin: 'auto' }} variant="danger">{errorMessage}</Alert>}
+
                     {/* Form */}
                     <Form
                         name="login-form"
                         style={{marginTop: 40}}
                         labelCol={{ span: 4, offset: 3}}
                         wrapperCol={{ span: 10 }}
-                        initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+                        autoComplete="on"
                     >
+
                         {/* Email */}
                         <Form.Item label="E-mail" name="email" rules={emailRules}>
-                            <Input />
+                            <Input  ref="emailInput"/>
                         </Form.Item>
                         
                         {/* Password*/}
                         <Form.Item label="Hasło" name="password" rules={passwordRules}>
-                            <Input.Password />
+                            <Input.Password ref="passwordInput"/>
                         </Form.Item>
-                        <div id='error-message'></div>
+
                         {/* Submit button */}
                         <Form.Item className='login-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
-                            <Button className='w-25' type="primary" htmlType="submit">Zaloguj</Button>
+                            <Button className='w-25' type="primary" htmlType="submit" disabled={loading}>{loading? "Logowanie..." : "Zaloguj"}</Button>
                             <Button className='w-25 mt-2'  htmlType="submit" onClick={logInWithGoogle}>Użyj konta Google</Button>
                         </Form.Item>
                     </Form>
