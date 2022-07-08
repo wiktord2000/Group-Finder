@@ -9,9 +9,8 @@ import { Alert } from 'react-bootstrap';
 function Register(){
 
     const navigate = useNavigate();
-
-    const [errorMessage, setErrorMessage] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState("");
+    const [ loading, setLoading ] = useState(false);
     const { signUp, currentUser} = useAuthContext();
 
 
@@ -28,7 +27,7 @@ function Register(){
         }
         
         try{
-            // disable the button when processing
+            // Disable the button when processing
             setLoading(true);
             await signUp(values.email, values.password);
             // Navigate to main page
@@ -39,7 +38,7 @@ function Register(){
             setErrorMessage("Nie można utowrzyć tego konta!");
         }
         
-        // enable the button
+        // Enable the button
         setLoading(false);
     };
 
@@ -125,7 +124,6 @@ function Register(){
                             <Button className='w-25' type="primary" htmlType="submit" disabled={loading}>{loading? "Rejestracja...": "Zarejestruj"}</Button>
                         </Form.Item>
                     </Form>
-                    {currentUser && currentUser.email}
                 </Col>
             </Row>
         </>

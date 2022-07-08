@@ -11,6 +11,7 @@ import AddSingleAd from './Pages/AddSingleAd/AddSingleAd';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import { useAuthContext } from './Providers/AuthContext';
+import PrivateRoute from './Shared/PrivateRoute';
 
 const { Header, Content, Footer } = Layout;
 
@@ -60,14 +61,22 @@ function App() {
             {/* Changing area */}
             <div className="side-content">
 
+                 {/* Paths */}
                 <Routes>
-                  {/* Paths */}
+
+                  {/* Search for students */}
                   <Route exact path='/' element={<SearchForStudents></SearchForStudents>}/>
+                  {/* Search for groups */}
                   <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
-                  <Route path='/yourAds' element={<YourAds></YourAds>}/>
-                  <Route path='/manageGroups' element={<ManageGroups></ManageGroups>}/>
-                  <Route path='/addSingleAd' element={<AddSingleAd></AddSingleAd>}/>
+                  {/* Your ads */}
+                  <Route path='/yourAds' element={<PrivateRoute><YourAds/></PrivateRoute>}/>
+                  {/* Manage groups */}
+                    <Route path='/manageGroups' element={<PrivateRoute><ManageGroups/></PrivateRoute>}/>
+                  {/* Add single ad */}
+                    <Route path='/addSingleAd' element={<PrivateRoute><AddSingleAd/></PrivateRoute>}/>
+                  {/* Login */}
                   <Route path='/login' element={<Login></Login>}/>
+                  {/* Register */}
                   <Route path='/register' element={<Register></Register>}/>
 
                 </Routes>
