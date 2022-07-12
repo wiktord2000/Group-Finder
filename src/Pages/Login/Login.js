@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import './Login.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
 import { useNavigate } from "react-router-dom";
-import { logInWithGoogle } from '../../firebase/users';
+// import { logInWithGoogle } from '../../firebase/users';
 import { useAuthContext } from '../../Providers/AuthContext';
 import { Alert } from 'react-bootstrap';
 
@@ -12,7 +12,8 @@ export default function Login(){
 
     const [ errorMessage, setErrorMessage ] = useState("");
     const [ loading, setLoading ] = useState(false);
-    const { logIn } = useAuthContext();
+    const [ googleLoading, setGoogleLoading] = useState(false);
+    const { logIn, signInWithGoogle } = useAuthContext();
     const navigate = useNavigate();
 
     const onFinish = async (values) => {
@@ -40,6 +41,28 @@ export default function Login(){
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    const onSignInWithGoogle = () => {
+
+        // Disable the button when processing
+        setGoogleLoading(true);
+
+        signInWithGoogle()
+            .then((result) => {
+                // The signed-in user info.
+                const user = result.user;
+                console.log(user);
+                // Navigate to main page
+                navigate('/');
+
+            }).catch((error) => {
+                console.log(error);
+
+            }).finally(() => {
+                // Disable the button when processing
+                setGoogleLoading(false);
+            });
+    }
 
 
     // Rules for form
@@ -99,8 +122,8 @@ export default function Login(){
 
                         {/* Submit button */}
                         <Form.Item className='login-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
-                            <Button className='w-25' type="primary" htmlType="submit" disabled={loading}>{loading? "Logowanie..." : "Zaloguj"}</Button>
-                            <Button className='w-25 mt-2'  htmlType="submit" onClick={logInWithGoogle}>Użyj konta Google</Button>
+                            <Button className='w-25' type="primary" htmlType="submit" disabled={loading | googleLoading}>{loading? "Logowanie..." : "Zaloguj"}</Button>
+                            <Button className='w-25 mt-2' onClick={onSignInWithGoogle} disabled={loading | googleLoading}>{googleLoading? "Logowanie..." : "Użyj konta google"}</Button>
                         </Form.Item>
                     </Form>
                 </Col>

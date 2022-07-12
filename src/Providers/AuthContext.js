@@ -1,6 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import { auth } from "../firebase/init";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 
 // Prepare auth context
 const AuthContext = createContext();
@@ -44,12 +46,19 @@ export function AuthProvider({children}){
         return signOut(auth);
     }
 
+    const signInWithGoogle = () => {
+
+        const provider = new GoogleAuthProvider();
+        return signInWithPopup(auth, provider);
+    }
+
     // shared values
     const value = {
         currentUser,
         signUp,
         logIn,
-        logOut
+        logOut,
+        signInWithGoogle
     }
 
     return(

@@ -1,5 +1,5 @@
 .side-content {
-    min-height: 590px;
+    min-height: calc(100vh - 70px - 64px - 30px);
     padding: 24px;
     background: #fff;
 }
