@@ -2,6 +2,10 @@
 .card{
     width: 250px;
     margin: 0.75rem !important;
+    background-color: rgba(0,0,0, 0.3) !important;
+    /* -webkit-backdrop-filter: blur(10px);  */
+    backdrop-filter: blur(10px);
+    color: white !important;
 }
 
 .ant-card-body{
@@ -12,6 +16,7 @@
     font-size: 0.75rem;
     font-weight: 600;
 }
+
 .description-block{
     font-size: 0.75rem !important;
     overflow-y: auto;
@@ -19,7 +24,6 @@
     scrollbar-width: thin;    
     height: 60px; 
 }
-
 
 .tags-block{
     height: 28px;
@@ -40,10 +44,44 @@ ul{
     padding-left: 16px;
     margin-bottom: 0px !important;
 }
+
+
+/* Adjust divider */
+.ant-card .ant-divider{
+    color: white !important;
+}
+
+.ant-divider-horizontal.ant-divider-with-text::after{
+    border-top: 1px solid white !important;
+}
+
+/* Make avatar border to contrast*/
+.ant-card .ant-avatar{
+    border: solid 1px white;
+}
+
+.ant-card-meta-title{
+    color: white !important; 
+}
+
+.ant-card-actions{
+    background-color: rgba(255,255,255,0.5) !important;
+    border-top: 3px solid rgba(255,255,255,0.2) !important;
+}
+
+.ant-card-bordered {
+    border: 3px solid rgba(255,255,255,0.3) !important;
+}
+
+.ant-card-actions > li > span > .anticon, .ant-card-actions > li > span a:not(.ant-btn){
+    color: white !important;
+}
+
+
 .ant-message {
     position: absolute;
     bottom: 30px !important;
     top: unset !important;
-  }
+}
 
 

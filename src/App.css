@@ -1,7 +1,11 @@
 .side-content {
     min-height: calc(100vh - 70px - 64px - 30px);
-    padding: 24px;
-    background: #fff;
+    padding: 2rem;
+    margin: 4rem 8rem;
+    /* background-color: #fff; */
+    background-color: rgba(0,0,0, 0.3);
+    backdrop-filter: blur(6px);
+    border-radius: 3px;
 }
 
 .logo{
@@ -10,3 +14,15 @@
     float: left;
     font-size: 1.25rem;
 }
+
+.footer{
+    background-color: #001529 !important;
+    text-align: center;
+    color: white !important;
+}
+
+main{
+    background-image: url("/public/images/bg_image.jpg");
+}
+
+

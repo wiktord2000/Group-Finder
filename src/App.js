@@ -23,72 +23,73 @@ function App() {
 
   return (
     <>
-        <Layout className="layout">
+      <Layout className="layout">
 
-          {/* ----------------------------------------------------------Navigation bar------------------------------------------------------------------ */}
-          <Header>
+        {/* ----------------------------------------------------------Navigation bar------------------------------------------------------------------ */}
+        <Header>
+          
+          {/* Logo */}
+          <div className='logo'><NavLink style={isActive => ({color: isActive && "white"})} to={''}>Group Finder</NavLink></div>
+
+          {/* Menu */}
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+
+            <Menu.Item  key='1'><NavLink to={''}>Szukaj studentów</NavLink></Menu.Item>
+            <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
             
-            {/* Logo */}
-            <div className='logo'><NavLink style={isActive => ({color: isActive && "white"})} to={''}>Group Finder</NavLink></div>
+            {/* show hidden button when login */}
+            {(currentUser)? 
+            <>
+                <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
+                <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logOut}><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
+            </>
+            :
+            <>
+                <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'} >Zaloguj</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Zarejestruj</NavLink></Menu.Item>
+            </>
+            }
 
-            {/* Menu */}
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+          </Menu>
 
-              <Menu.Item  key='1'><NavLink to={''}>Szukaj studentów</NavLink></Menu.Item>
-              <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
-              
-              {/* show hidden button when login */}
-              {(currentUser)? 
-              <>
-                  <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
-                  <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
-                  <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logOut}><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
-              </>
-              :
-              <>
-                  <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'} >Zaloguj</NavLink></Menu.Item>
-                  <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Zarejestruj</NavLink></Menu.Item>
-              </>
-              }
+        </Header>    
 
-            </Menu>
 
-          </Header>    
+        {/* ----------------------------------------------------------------Content--------------------------------------------------------------------- */}
+        <Content>
 
-          {/* ----------------------------------------------------------------Content--------------------------------------------------------------------- */}
-          <Content style={{ padding: '30px 70px 0px 70px' }}>
+          {/* Changing area */}
+          <div className="side-content">
 
-            {/* Changing area */}
-            <div className="side-content">
+              {/* Paths */}
+              <Routes>
 
-                 {/* Paths */}
-                <Routes>
+                {/* Search for students */}
+                <Route exact path='/' element={<SearchForStudents></SearchForStudents>}/>
+                {/* Search for groups */}
+                <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
+                {/* Your ads */}
+                <Route path='/yourAds' element={<PrivateRoute><YourAds/></PrivateRoute>}/>
+                {/* Manage groups */}
+                  <Route path='/manageGroups' element={<PrivateRoute><ManageGroups/></PrivateRoute>}/>
+                {/* Add single ad */}
+                  <Route path='/addSingleAd' element={<PrivateRoute><AddSingleAd/></PrivateRoute>}/>
+                {/* Login */}
+                <Route path='/login' element={<Login></Login>}/>
+                {/* Register */}
+                <Route path='/register' element={<Register></Register>}/>
 
-                  {/* Search for students */}
-                  <Route exact path='/' element={<SearchForStudents></SearchForStudents>}/>
-                  {/* Search for groups */}
-                  <Route path='/searchForGroup' element={<SearchForGroup></SearchForGroup>}/>
-                  {/* Your ads */}
-                  <Route path='/yourAds' element={<PrivateRoute><YourAds/></PrivateRoute>}/>
-                  {/* Manage groups */}
-                    <Route path='/manageGroups' element={<PrivateRoute><ManageGroups/></PrivateRoute>}/>
-                  {/* Add single ad */}
-                    <Route path='/addSingleAd' element={<PrivateRoute><AddSingleAd/></PrivateRoute>}/>
-                  {/* Login */}
-                  <Route path='/login' element={<Login></Login>}/>
-                  {/* Register */}
-                  <Route path='/register' element={<Register></Register>}/>
+              </Routes>
 
-                </Routes>
+          </div>
 
-            </div>
+        </Content>
 
-          </Content>
+        {/* --------------------------------------------------------------------------Fotter-------------------------------------------------------------------*/}
+        <Footer className="footer">Created by Wiktor Danielewski ©2022</Footer>
 
-          {/* --------------------------------------------------------------------------Fotter-------------------------------------------------------------------*/}
-          <Footer style={{ textAlign: 'center' }}>Created by Wiktor Danielewski ©2022</Footer>
-
-        </Layout>
+      </Layout>
     </>
   );
   
