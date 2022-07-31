@@ -107,12 +107,12 @@ function SearchForStudents(){
             <div className="filters-area shadow-sm">
 
                 <Select defaultValue="tags" style={{ width: 120 }} onChange={handleSelectChange}>
-                    <Option value="tags">Tagi</Option>
-                    <Option value="description">Opis</Option>
-                    <Option value="courses">Kursy</Option>
+                    <Option value="tags">Tags</Option>
+                    <Option value="description">Descriptions</Option>
+                    <Option value="courses">Courses</Option>
                 </Select>
 
-                <Search allowClear style={{width:300}} onSearch={handleOnSearch} placeholder="Wprowadź tekst..."enterButton />
+                <Search allowClear style={{width:300}} onSearch={handleOnSearch} placeholder="Insert text..."enterButton />
             </div>
 
             <div className='cards-container'>

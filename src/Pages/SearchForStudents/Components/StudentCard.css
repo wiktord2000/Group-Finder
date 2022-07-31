@@ -57,7 +57,7 @@ ul{
 
 /* Make avatar border to contrast*/
 .ant-card .ant-avatar{
-    border: solid 1px white;
+    border: 2px solid rgba(255,255,255,0.5);
 }
 
 .ant-card-meta-title{
@@ -73,10 +73,19 @@ ul{
     border: 3px solid rgba(255,255,255,0.3) !important;
 }
 
-.ant-card-actions > li > span > .anticon, .ant-card-actions > li > span a:not(.ant-btn){
+.white-tag{
     color: white !important;
+    background: rgba(255,255,255,0.2) !important;    
+    border: 1px solid white !important;
 }
 
+.ant-card-actions > li > span > .anticon:hover{
+    color: rgba(0,0,0,.45) !important; 
+}
+
+.ant-card-hoverable:hover {
+    border-color: rgba(255,255,255,0.45) !important;
+}
 
 .ant-message {
     position: absolute;

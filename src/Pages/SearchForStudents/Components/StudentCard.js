@@ -43,9 +43,9 @@ function StudentCard(props){
                 className="card shadow"
                 // Buttons section
                 actions={[
-                    <SendOutlined onClick={showModal} key="send" />,
-                    <StarOutlined onClick={ApiService.getSingleAds} key="follow" />,
-                    <UserOutlined key="profile" />
+                    <SendOutlined style={{color: 'white'}} onClick={showModal} key="send" />,
+                    <StarOutlined style={{color: 'white'}} onClick={ApiService.getSingleAds} key="follow" />,
+                    <UserOutlined style={{color: 'white'}} key="profile" />
                 ]}
                 hoverable
             >
@@ -61,18 +61,18 @@ function StudentCard(props){
                 {/* Tags section */}
                 <div className="tags-block">
                     {/* Render tags */}
-                    { props.tags.map((tagName, i) => {return <Tag key={'t' + i} style={{marginBottom: 5}} color="magenta">{tagName}</Tag>})}
+                    { props.tags.map((tagName, i) => {return <Tag key={'t' + i} style={{marginBottom: 5}} className="white-tag">{tagName}</Tag>})}
                                                                 
                 </div>
 
-                <Divider style={{marginTop:0, marginBottom:5}} orientation="left" orientationMargin={0}><span className="divider-text">Opis</span></Divider>
+                <Divider style={{marginTop:0, marginBottom:5}} orientation="left" orientationMargin={0}><span className="divider-text">Description</span></Divider>
                 
                 {/* Description section */}
                 <div className="description-block">
                     {props.description}
                 </div>
                 
-                <Divider style={{marginTop:5, marginBottom:5}} orientation="left" orientationMargin={0}><span className="divider-text">Realizowane kursy</span></Divider>
+                <Divider style={{marginTop:5, marginBottom:5}} orientation="left" orientationMargin={0}><span className="divider-text">Courses</span></Divider>
                 
                 {/* Courses section */}
                 <div className="courses-block">

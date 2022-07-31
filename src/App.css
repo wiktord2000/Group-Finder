@@ -1,7 +1,7 @@
 .side-content {
     min-height: calc(100vh - 70px - 64px - 30px);
     padding: 2rem;
-    margin: 4rem 8rem;
+    margin: 6vh 8vw;
     /* background-color: #fff; */
     background-color: rgba(0,0,0, 0.3);
     backdrop-filter: blur(6px);
@@ -22,7 +22,12 @@
 }
 
 main{
-    background-image: url("/public/images/bg_image.jpg");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/group-finder-bb64a.appspot.com/o/images%2Fbackground%2Fbg_image.jpg?alt=media&token=363fa536-b498-4c5d-a2bc-02de81367982");
 }
 
+@media only screen and (max-width: 600px) {
+    .side-content {
+        margin: 1rem 1rem;
+    }
+  }
 

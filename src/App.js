@@ -34,20 +34,20 @@ function App() {
           {/* Menu */}
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
 
-            <Menu.Item  key='1'><NavLink to={''}>Szukaj studentów</NavLink></Menu.Item>
-            <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Szukaj grupy</NavLink></Menu.Item>
+            <Menu.Item  key='1'><NavLink to={''}>Find students</NavLink></Menu.Item>
+            <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Find group</NavLink></Menu.Item>
             
             {/* show hidden button when login */}
             {(currentUser)? 
             <>
-                <Menu.Item  key='3'><NavLink to={'/yourAds'}>Twoje ogłoszenia</NavLink></Menu.Item>
-                <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Zarządzaj grupami</NavLink></Menu.Item>
-                <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logOut}><NavLink to={'/login'}>Wyloguj</NavLink></Menu.Item>
+                <Menu.Item  key='3'><NavLink to={'/yourAds'}>Your ads</NavLink></Menu.Item>
+                <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Manage groups</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logOut}><NavLink to={'/login'}>Logout</NavLink></Menu.Item>
             </>
             :
             <>
-                <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'} >Zaloguj</NavLink></Menu.Item>
-                <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Zarejestruj</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'} >Login</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Register</NavLink></Menu.Item>
             </>
             }
 
