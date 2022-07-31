@@ -1,6 +1,6 @@
 # Group Finder
 
-![looking-for-students](https://user-images.githubusercontent.com/63188869/174153397-9e5bd398-40b9-4592-9139-097734f77a42.png)
+![looking-for-students](https://user-images.githubusercontent.com/63188869/182046299-decdcad3-5203-4c77-97c9-672240959579.png)
 
 ## Getting Started with Create React App
 
