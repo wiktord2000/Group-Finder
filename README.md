@@ -1,74 +1,19 @@
 # Group Finder
 
-![looking-for-students](https://user-images.githubusercontent.com/63188869/174153397-9e5bd398-40b9-4592-9139-097734f77a42.png)
+It is a single-person project at a university course but I find it interesting. The aim was to create a frontend (in ReactJS) for a web application that will resolve the common problem in every university which is the finding persons to the group (currently I'm working also at backend using Firebase). The application provides two main sections "Find group" and "Find students". The first one allows us to view current groups which looking for students and the second one to view students list who looking for a group. We have also a section called "Your ads" where we can check out our ads or add a new one. The next section is "Manage groups" which is dedicated to group management. In the group ad, we can specify current group members and basic information about courses that will be implemented via the group. In a single one, we can use tags, add descriptions and point to courses in which we are interested. Every advert includes a place for a small picture. The application is supported via Firebase authentication and mostly consists of Ant Design components. At this moment application does not have full functionality, for example, we can only work with single ads and the "Manage groups" section is not implemented but I still working on this. 
 
-## Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+|<img src="https://user-images.githubusercontent.com/63188869/182046299-decdcad3-5203-4c77-97c9-672240959579.png" alt="drawing" width="1000"/>|
+| :--: | 
+| *Main view* |
 
-### Available Scripts
-
-In the project directory, you can run:
-
-#### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-#### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-#### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-#### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-### Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-#### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-#### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-#### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-#### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-#### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-#### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Goals
+ - [X] Login and Register posibility
+ - [X] Firebase authentication (Google and Email&Password)
+ - [X] Find students view (with fetching the data from Firebase database)
+ - [X] Provide private routes
+ - [ ] Find group view
+ - [X] Add single ad
+ - [ ] Add group ad
+ - [ ] Manage groups view
+ - [ ] Your ads
