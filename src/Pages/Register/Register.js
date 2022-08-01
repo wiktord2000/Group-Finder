@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Register.css'
 import { Col, Row, Form, Input, Button, Divider} from 'antd';
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,15 @@ function Register(){
     const { signUp, currentUser} = useAuthContext();
 
 
+    useEffect(() => {
+        // Delete side-content styling
+        document.getElementById("side-content").classList.remove('black-transparency-effect', 'shadow');
+
+        // Restore styling
+        return(() => {
+            document.getElementById("side-content").classList.add('black-transparency-effect', 'shadow');
+        })
+    }, [])
 
     const onFinish = async (values) => {
 
@@ -22,7 +31,7 @@ function Register(){
 
         // If passwords aren't same
         if(values.password !== values.password2){
-            setErrorMessage("Wprowadzone hasła się różnią!");
+            setErrorMessage("Inserted passwords are not equal!");
             return;
         }
         
@@ -33,71 +42,84 @@ function Register(){
             // Navigate to main page
             navigate('/');
 
-        } catch(e){
-            console.log(e);
-            setErrorMessage("Nie można utowrzyć tego konta!");
+        } catch(error){
+            // console.log(error.message);
+            if(error.message === "Firebase: Error (auth/email-already-in-use)."){
+                setErrorMessage("The given address is already taken!");
+            }
+            else{
+                setErrorMessage("Unidentified error!");
+            }
         }
         
         // Enable the button
         setLoading(false);
     };
 
-    // Rules
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+    
+    // --------------------------------- Rules ---------------------------------
     const passwordRules = [
         {
             required: true,
-            message: 'Proszę wprowadź hasło!'
+            message: 'Please insert the password!'
         }
     ]
 
     const emailRules = [
         {
             type: 'email',
-            message: 'Wprowadzono niepoprawny e-mail!',
+            message: 'Incorrect e-mail!',
         },
         {
             required: true,
-            message: 'Proszę wprowadź swój e-mail!',
+            message: 'Please insert the e-mail!',
         }
     ];
 
     const userRules = [
         {
             required: true,
-            message: 'Proszę wprowadź nazwę użytkownika!'
+            message: 'Please insert the username!'
         },
     ]
 
 
     return(
         <>
-            <Row style={{marginTop: 20}} justify='center'>
+            <Row style={{marginTop: -30}} justify='center'>
                 
-                {/* Form container - lightgrey area */}
-                <Col id="form-container" className="shadow" span={12}>
+                {/* Form container */}
+                <Col className="black-transparency-effect shadow register-container" span={12}>
 
                     {/* Header */}
                     <Col justify='center' span={22} offset={1}>
-                        <Divider style={{fontSize: '28px'}}>Rejestracja</Divider>
+                        <Divider style={{fontSize: '1.875rem'}}>Register</Divider>
                     </Col>
 
                     {/* Error message */}
-                    { errorMessage && <Alert style={{maxWidth: 400 , margin: 'auto' }} variant="danger">{errorMessage}</Alert>}
+                    { errorMessage && 
+
+                        <Col justify='center' span={14} offset={5}>
+                            <Alert className="alert-message" variant="danger">
+                                {errorMessage}
+                            </Alert>
+                        </Col>
+                    }
 
                     {/* Form */}
                     <Form
-                        name="login-form"
-                        style={{marginTop: 40}}
-                        labelCol={{ span: 6, offset: 1}}
-                        wrapperCol={{ span: 10 }}
+                        name="register-form"
+                        style={{marginTop: 20}}
+                        labelCol= {{ offset: 5, span: 14 }}
+                        wrapperCol={{ offset: 5, span: 14 }}
                         initialValues={{ remember: false }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+                        layout="vertical"
                     >
                         {/* Email */}
                         <Form.Item label="E-mail" name="email" rules={emailRules}>
@@ -105,23 +127,23 @@ function Register(){
                         </Form.Item>
 
                         {/* UserName*/}
-                        <Form.Item label="Nazwa użytkownika" name="userName" rules={userRules}>
+                        <Form.Item label="Username" name="userName" rules={userRules}>
                             <Input />
                         </Form.Item>
                         
                         {/* Password*/}
-                        <Form.Item label="Hasło" name="password" rules={passwordRules}>
+                        <Form.Item label="Password" name="password" rules={passwordRules}>
                             <Input.Password />
                         </Form.Item>
 
                         {/* Password2*/}
-                        <Form.Item label="Powtórz hasło" name="password2" rules={passwordRules}>
+                        <Form.Item label="Repeat password" name="password2" rules={passwordRules}>
                             <Input.Password />
                         </Form.Item>
 
                         {/* Submit button */}
-                        <Form.Item className='register-button'  style={{marginTop: 40}} wrapperCol={{span: 24 }}>
-                            <Button className='w-25' type="primary" htmlType="submit" disabled={loading}>{loading? "Rejestracja...": "Zarejestruj"}</Button>
+                        <Form.Item className='register-button'  style={{marginTop: 40}} wrapperCol= {{offset: 8, span: 8}}>
+                            <Button className='w-100' type="primary" htmlType="submit" disabled={loading}>{loading? "Processing...": "Register"}</Button>
                         </Form.Item>
                     </Form>
                 </Col>

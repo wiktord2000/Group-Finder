@@ -1,5 +1,10 @@
+
 #error-message{
     color: red;
+}
+
+.register-container{
+    padding: 2rem !important;
 }
 
 .register-button .ant-form-item-control-input-content{

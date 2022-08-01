@@ -97,15 +97,23 @@ export default function Login(){
             <Row style={{marginTop: 20}} justify='center'>
                 
                 {/* Form container */}
-                <Col id="form-container" className="black-transparency-effect shadow" span={12}>
+                <Col className="black-transparency-effect shadow login-container" span={12}>
 
                     {/* Header */}
                     <Col justify='center' span={22} offset={1}>
-                        <Divider style={{fontSize: '1.875rem'}}>Logowanie</Divider>
+                        <Divider style={{fontSize: '1.875rem'}}>Login</Divider>
                     </Col>
 
                     {/* Error message */}
-                    { errorMessage && <Alert className="alert-message" variant="danger">{errorMessage}</Alert>}
+                    { errorMessage && 
+
+                        <Col justify='center' span={14} offset={5}>
+                            <Alert className="alert-message" variant="danger">
+                                {errorMessage}
+                            </Alert>
+                        </Col>
+                    }
+                    
 
                     {/* Form */}
                     <Form

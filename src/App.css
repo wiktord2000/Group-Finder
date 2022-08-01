@@ -89,6 +89,21 @@ main{
     top: unset !important;
 }
 
+/* Input explain error */
+.ant-form-item-explain-error {
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Alert component */
+.alert-danger {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-left: 4px solid rgba(255, 0, 0, 0.6);
+    border-radius: 0px;
+}
+
 
 
 /* --------------------------------------- Media -------------------------------------*/
