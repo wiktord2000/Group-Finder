@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from '../../Providers/AuthContext';
 import { Alert } from 'react-bootstrap';
 
-
-
 export default function Login(){
 
     const [ errorMessage, setErrorMessage ] = useState("");
@@ -36,6 +34,16 @@ export default function Login(){
         // Enable the button
         setLoading(false);
     };
+
+    useEffect(() => {
+        // Delete side-content styling
+        document.getElementById("side-content").classList.remove('black-transparency-effect', 'shadow');
+
+        // Restore styling
+        return(() => {
+            document.getElementById("side-content").classList.add('black-transparency-effect', 'shadow');
+        })
+    }, [])
  
 
     const onFinishFailed = (errorInfo) => {
@@ -88,26 +96,27 @@ export default function Login(){
         <>
             <Row style={{marginTop: 20}} justify='center'>
                 
-                {/* Form container - lightgrey area */}
-                <Col id="form-container" className="shadow" span={12}>
+                {/* Form container */}
+                <Col id="form-container" className="black-transparency-effect shadow" span={12}>
 
                     {/* Header */}
                     <Col justify='center' span={22} offset={1}>
-                        <Divider style={{fontSize: '28px'}}>Logowanie</Divider>
+                        <Divider style={{fontSize: '1.875rem'}}>Logowanie</Divider>
                     </Col>
 
                     {/* Error message */}
-                    { errorMessage && <Alert style={{maxWidth: 400 , margin: 'auto' }} variant="danger">{errorMessage}</Alert>}
+                    { errorMessage && <Alert className="alert-message" variant="danger">{errorMessage}</Alert>}
 
                     {/* Form */}
                     <Form
                         name="login-form"
-                        style={{marginTop: 40}}
-                        labelCol={{ span: 4, offset: 3}}
-                        wrapperCol={{ span: 10 }}
+                        style={{marginTop: 20}}
+                        labelCol= {{ offset: 5, span: 14 }}
+                        wrapperCol={{ offset: 5, span: 14 }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="on"
+                        layout='vertical'
                     >
 
                         {/* Email */}
@@ -121,9 +130,9 @@ export default function Login(){
                         </Form.Item>
 
                         {/* Submit button */}
-                        <Form.Item className='login-button' style={{marginTop: 40}} wrapperCol={{span: 24 }}>
-                            <Button className='w-25' type="primary" htmlType="submit" disabled={loading | googleLoading}>{loading? "Logowanie..." : "Zaloguj"}</Button>
-                            <Button className='w-25 mt-2' onClick={onSignInWithGoogle} disabled={loading | googleLoading}>{googleLoading? "Logowanie..." : "Użyj konta google"}</Button>
+                        <Form.Item className='login-button' style= {{marginTop: 40}} wrapperCol= {{offset: 8, span: 8}}>
+                            <Button className='w-100' type="primary" htmlType="submit" disabled={loading | googleLoading}>{loading? "Logging..." : "Login"}</Button>
+                            <Button className='w-100 google-button' onClick={onSignInWithGoogle} disabled={loading | googleLoading}>{googleLoading? "Processing..." : "Google account"}</Button>
                         </Form.Item>
                     </Form>
                 </Col>

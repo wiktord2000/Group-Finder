@@ -13,6 +13,7 @@ import Register from './Pages/Register/Register';
 import { useAuthContext } from './Providers/AuthContext';
 import PrivateRoute from './Shared/PrivateRoute';
 
+
 const { Header, Content, Footer } = Layout;
 
 
@@ -60,7 +61,7 @@ function App() {
         <Content>
 
           {/* Changing area */}
-          <div className="side-content">
+          <div id="side-content" className="black-transparency-effect shadow">
 
               {/* Paths */}
               <Routes>

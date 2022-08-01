@@ -8,10 +8,6 @@
     color: white !important;
 }
 
-.ant-card-body{
-    padding-bottom: 15px !important;
-}
-
 .divider-text{
     font-size: 0.75rem;
     font-weight: 600;
@@ -45,52 +41,16 @@ ul{
     margin-bottom: 0px !important;
 }
 
-
-/* Adjust divider */
-.ant-card .ant-divider{
-    color: white !important;
-}
-
-.ant-divider-horizontal.ant-divider-with-text::after{
-    border-top: 1px solid white !important;
-}
-
-/* Make avatar border to contrast*/
-.ant-card .ant-avatar{
-    border: 2px solid rgba(255,255,255,0.5);
-}
-
-.ant-card-meta-title{
-    color: white !important; 
-}
-
-.ant-card-actions{
-    background-color: rgba(255,255,255,0.5) !important;
-    border-top: 3px solid rgba(255,255,255,0.2) !important;
-}
-
-.ant-card-bordered {
-    border: 3px solid rgba(255,255,255,0.3) !important;
-}
-
 .white-tag{
     color: white !important;
     background: rgba(255,255,255,0.2) !important;    
     border: 1px solid white !important;
 }
 
-.ant-card-actions > li > span > .anticon:hover{
-    color: rgba(0,0,0,.45) !important; 
-}
 
-.ant-card-hoverable:hover {
-    border-color: rgba(255,255,255,0.45) !important;
-}
 
-.ant-message {
-    position: absolute;
-    bottom: 30px !important;
-    top: unset !important;
-}
+
+
+
 
 

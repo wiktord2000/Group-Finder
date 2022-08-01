@@ -1,11 +1,7 @@
-.side-content {
-    min-height: calc(100vh - 70px - 64px - 30px);
+#side-content {
+    min-height: calc(100vh - 70px - 64px);
     padding: 2rem;
     margin: 6vh 8vw;
-    /* background-color: #fff; */
-    background-color: rgba(0,0,0, 0.3);
-    backdrop-filter: blur(6px);
-    border-radius: 3px;
 }
 
 .logo{
@@ -21,13 +17,85 @@
     color: white !important;
 }
 
-main{
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/group-finder-bb64a.appspot.com/o/images%2Fbackground%2Fbg_image.jpg?alt=media&token=363fa536-b498-4c5d-a2bc-02de81367982");
+.black-transparency-effect{
+    background-color: rgba(0,0,0, 0.2);
+    backdrop-filter: blur(6px);
+    border-radius: 3px;
 }
+
+main{
+    /* background-image: url("https://firebasestorage.googleapis.com/v0/b/group-finder-bb64a.appspot.com/o/images%2Fbackground%2Fbg_image.jpg?alt=media&token=363fa536-b498-4c5d-a2bc-02de81367982"); */
+    background-image: url("/public/images/bg_image.jpg");
+}
+
+
+/* ----------------------- Changes in antd styling -----------------------*/
+
+
+/* ------ Card component */
+.ant-card-body{
+    padding-bottom: 15px !important;
+}
+
+.ant-card .ant-avatar{
+    border: 2px solid rgba(255,255,255,0.5);
+}
+
+.ant-card-meta-title{
+    color: white !important; 
+}
+
+.ant-card-actions{
+    background-color: rgba(255,255,255,0.5) !important;
+    border-top: 3px solid rgba(255,255,255,0.2) !important;
+}
+
+.ant-card-actions > li > span > .anticon:hover{
+    color: rgba(0,0,0,.45) !important; 
+}
+
+.ant-card-bordered {
+    border: 3px solid rgba(255,255,255,0.3) !important;
+}
+
+.ant-card-hoverable:hover {
+    border-color: rgba(255,255,255,0.45) !important;
+}
+
+
+/* ------ Divider component */
+/* Change color to white */
+.ant-divider{
+    color: white !important;
+}
+
+.ant-divider-horizontal.ant-divider-with-text::after{
+    border-top: 1px solid white !important;
+}
+
+.ant-divider-horizontal.ant-divider-with-text::before{
+    border-top: 1px solid white !important;
+}
+
+.ant-form-item-label > label {
+    color: white !important;
+}
+
+
+/* ------ Message component */
+.ant-message {
+    position: absolute;
+    bottom: 30px !important;
+    top: unset !important;
+}
+
+
+
+/* --------------------------------------- Media -------------------------------------*/
 
 @media only screen and (max-width: 600px) {
     .side-content {
         margin: 1rem 1rem;
     }
-  }
+}
 

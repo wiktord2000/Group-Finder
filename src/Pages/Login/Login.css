@@ -1,6 +1,5 @@
 
 #form-container{
-    background-color: #f0f2f5 !important;
     padding: 2rem !important;
 }
 
@@ -11,7 +10,27 @@
 
 .login-button .ant-form-item-control-input-content{
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    gap: 0.5rem;
+}
+
+.alert-message{
+    max-width: 400px;
+    margin: auto;
+}
+
+.google-button{
+    background-color: rgba(255,255,255, 0.1) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+.google-button:hover{
+    background-color: rgba(255,255,255, 0.2) !important;
+}
+
+
+@media only screen and (max-width: 600px) {
+    
 }
