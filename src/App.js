@@ -12,6 +12,7 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import { useAuthContext } from './Providers/AuthContext';
 import PrivateRoute from './Shared/PrivateRoute';
+import CreateAd from './Pages/CreateAd/CreateAd';
 
 
 const { Header, Content, Footer } = Layout;
@@ -38,17 +39,18 @@ function App() {
             <Menu.Item  key='1'><NavLink to={''}>Find students</NavLink></Menu.Item>
             <Menu.Item  key='2'><NavLink to={'/searchForGroup'}>Find group</NavLink></Menu.Item>
             
-            {/* show hidden button when login */}
+            {/* show hidden button when logged */}
             {(currentUser)? 
             <>
                 <Menu.Item  key='3'><NavLink to={'/yourAds'}>Your ads</NavLink></Menu.Item>
                 <Menu.Item  key='4'><NavLink to={'/manageGroups'}>Manage groups</NavLink></Menu.Item>
-                <Menu.Item style={{marginLeft: 'auto'}} key='5' onClick={logOut}><NavLink to={'/login'}>Logout</NavLink></Menu.Item>
+                <Menu.Item  key='5'><NavLink to={'/createAd'}>Create ad</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 'auto'}} key='6' onClick={logOut}><NavLink to={'/login'}>Logout</NavLink></Menu.Item>
             </>
             :
             <>
-                <Menu.Item style={{marginLeft: 'auto'}} key='6'><NavLink to={'/login'} >Login</NavLink></Menu.Item>
-                <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='7'><NavLink to={'/register'}>Register</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 'auto'}} key='7'><NavLink to={'/login'} >Login</NavLink></Menu.Item>
+                <Menu.Item style={{marginLeft: 0, marginRight: 0}}  key='8'><NavLink to={'/register'}>Register</NavLink></Menu.Item>
             </>
             }
 
@@ -73,9 +75,11 @@ function App() {
                 {/* Your ads */}
                 <Route path='/yourAds' element={<PrivateRoute><YourAds/></PrivateRoute>}/>
                 {/* Manage groups */}
-                  <Route path='/manageGroups' element={<PrivateRoute><ManageGroups/></PrivateRoute>}/>
+                <Route path='/manageGroups' element={<PrivateRoute><ManageGroups/></PrivateRoute>}/>
+                {/* Create ad */}
+                <Route path='/createAd' element={<PrivateRoute><CreateAd/></PrivateRoute>}/>
                 {/* Add single ad */}
-                  <Route path='/addSingleAd' element={<PrivateRoute><AddSingleAd/></PrivateRoute>}/>
+                <Route path='/addSingleAd' element={<PrivateRoute><AddSingleAd/></PrivateRoute>}/>
                 {/* Login */}
                 <Route path='/login' element={<Login></Login>}/>
                 {/* Register */}

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // import { logInWithGoogle } from '../../firebase/users';
 import { useAuthContext } from '../../Providers/AuthContext';
 import { Alert } from 'react-bootstrap';
+import { GoogleOutlined } from '@ant-design/icons';
 
 export default function Login(){
 
@@ -139,8 +140,21 @@ export default function Login(){
 
                         {/* Submit button */}
                         <Form.Item className='login-button' style= {{marginTop: 40}} wrapperCol= {{offset: 8, span: 8}}>
-                            <Button className='w-100' type="primary" htmlType="submit" disabled={loading | googleLoading}>{loading? "Logging..." : "Login"}</Button>
-                            <Button className='w-100 google-button' onClick={onSignInWithGoogle} disabled={loading | googleLoading}>{googleLoading? "Processing..." : "Google account"}</Button>
+
+                            {/* Login button */}
+                            <Button className='w-100' type="primary" 
+                                    htmlType="submit" 
+                                    disabled={loading | googleLoading}>{loading? "Logging..." : "Login"}
+                            </Button>
+
+                            {/* Google button */}
+                            <Button className='w-100 google-button' 
+                                    onClick={onSignInWithGoogle} 
+                                    disabled={loading | googleLoading}>
+                                        { googleLoading
+                                            ? "Processing..." 
+                                            : <span><GoogleOutlined style={{marginRight: 5}} />Google account</span>}
+                            </Button>
                         </Form.Item>
                     </Form>
                 </Col>

@@ -20,7 +20,7 @@
 .black-transparency-effect{
     background-color: rgba(0,0,0, 0.2);
     backdrop-filter: blur(6px);
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 main{
