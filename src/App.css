@@ -107,10 +107,20 @@ main{
 
 
 /* --------------------------------------- Media -------------------------------------*/
+/* Note: */
+/* {
+    xs: '480px',
+    sm: '576px',
+    md: '768px',
+    lg: '992px',
+    xl: '1200px',
+    xxl: '1600px',
+} */
 
-@media only screen and (max-width: 600px) {
-    .side-content {
-        margin: 1rem 1rem;
+/* When xs */
+@media only screen and (max-width: 576px) {
+    #side-content {
+        margin: 4vh 0vw;
     }
 }
 

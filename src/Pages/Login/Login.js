@@ -98,7 +98,13 @@ export default function Login(){
             <Row style={{marginTop: 20}} justify='center'>
                 
                 {/* Form container */}
-                <Col className="black-transparency-effect shadow login-container" span={12}>
+                {/* Note: lg={12} is equivalent to lg={{span: 12}}*/}
+                <Col className="black-transparency-effect shadow login-container" 
+                    xl={12}
+                    lg={16}
+                    sm={22}
+                    xs={24}
+                    >
 
                     {/* Header */}
                     <Col justify='center' span={22} offset={1}>
@@ -139,7 +145,13 @@ export default function Login(){
                         </Form.Item>
 
                         {/* Submit button */}
-                        <Form.Item className='login-button' style= {{marginTop: 40}} wrapperCol= {{offset: 8, span: 8}}>
+                        <Form.Item className='login-button' 
+                                   style= {{marginTop: 40}} 
+                                   wrapperCol= {{
+                                                    lg: {offset: 8, span: 8}, 
+                                                    sm: {offset: 7, span: 10},
+                                                    xs: {offset: 2, span: 20}
+                                                }}>
 
                             {/* Login button */}
                             <Button className='w-100' type="primary" 

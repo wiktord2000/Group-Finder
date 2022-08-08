@@ -1,6 +1,6 @@
 import './AddSingleAd.css';
-import { Input, Form, Button, Space, Divider} from 'antd';
-import React, { useState} from 'react';
+import { Input, Form, Button, Divider} from 'antd';
+import React, { useEffect } from 'react';
 import { PlusOutlined , CloseOutlined } from '@ant-design/icons';
 import { SingleAd } from '../../Models/SingleAd';
 import useLocalStorage from '../../CustomHooks/useLocalStorage';
@@ -11,6 +11,16 @@ function AddAd(){
 
     const [value, setValue] = useLocalStorage("accountData", "");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Delete side-content styling
+        document.getElementById("side-content").classList.remove('black-transparency-effect', 'shadow');
+
+        // Restore styling
+        return(() => {
+            document.getElementById("side-content").classList.add('black-transparency-effect', 'shadow');
+        })
+    }, [])
 
     const emailRules = [
         {
@@ -74,8 +84,11 @@ function AddAd(){
 
     return(
         <>
-            <div className='form-container shadow'>
-                <Divider  style={{fontSize: '20px', marginBottom: 40}}>Uzupełnij ogłoszenie</Divider>
+            <div className='form-container shadow black-transparency-effect'>
+
+                {/* Title */}
+                <Divider className='title-divider' style={{fontSize: '20px', marginBottom: 40}}>Uzupełnij ogłoszenie</Divider>
+
                 <Form name="single-ad"  wrapperCol={{span: 10, offset: 7}} autoComplete='off' initialValues={{remember: true}} onFinish = {onFinish}>
 
                     {/* Name  field*/}
@@ -92,7 +105,7 @@ function AddAd(){
                     {/* Description field */}
                     <Divider>Opis <span style={{color: 'red'}}>*</span></Divider>
                     <Form.Item name="description" rules={descriptionRules} >
-                        <Input.TextArea  maxLength={200}/>
+                        <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} maxLength={200}/>
                     </Form.Item>
                     
                     {/* Adding tags section */}

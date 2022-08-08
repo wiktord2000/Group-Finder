@@ -31,6 +31,12 @@
 }
 
 
-@media only screen and (max-width: 600px) {
-    
+@media only screen and (max-width: 576px) {
+    #side-content {
+        padding: 0px;
+    }
+
+    .login-container{
+        width: 100% !important;
+    }
 }
