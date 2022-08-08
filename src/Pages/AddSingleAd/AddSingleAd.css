@@ -1,36 +1,29 @@
 .form-container{
-    width: 75%;
     margin: auto;
+    margin-top: -2rem;
+    width: 75%;
     padding: 2rem !important;
     height: auto;
 }
 
 /* Delete icon */
 .delete-icon{
-    margin-left: 8px;
+    margin-left: 0.5em;
+    font-size: 1rem;
+    color: red !important;
 }
 
 .delete-icon:hover{
-    color: red;
-}
-
-/* Tag input adjust*/
-.tag-input .ant-form-item-control-input-content{
-    display: flex;
-    
-    justify-content: center;
-    align-items: center;
-    margin: 0 10px;
-}
-
-.button-row .ant-form-item-control-input-content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    scale: 1.2;
+    transition: 100ms;
 }
 
 .title-divider{
     font-size: 1.875rem !important;
+}
+
+.required-color{
+    color: #ff4d4f;
 }
 
 /* --------------------------------------- Media -------------------------------------*/

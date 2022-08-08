@@ -1,5 +1,5 @@
 import './AddSingleAd.css';
-import { Input, Form, Button, Divider} from 'antd';
+import { Input, Form, Button, Divider, Row, Col} from 'antd';
 import React, { useEffect } from 'react';
 import { PlusOutlined , CloseOutlined } from '@ant-design/icons';
 import { SingleAd } from '../../Models/SingleAd';
@@ -21,17 +21,6 @@ function AddAd(){
             document.getElementById("side-content").classList.add('black-transparency-effect', 'shadow');
         })
     }, [])
-
-    const emailRules = [
-        {
-            type: 'email',
-            message: 'Wprowadzono niepoprawny e-mail!',
-        },
-        {
-            required: true,
-            message: 'Proszę wprowadź swój e-mail!',
-        }
-    ];
 
     const nameRules = [
         {
@@ -64,7 +53,7 @@ function AddAd(){
 
     // On form finish
     const onFinish = (values) => { 
-        console.log(values);
+
         // If undefine - set empty array
         if(!values.tags) values.tags = [];
         if(!values.courses) values.courses = [];
@@ -86,111 +75,157 @@ function AddAd(){
         <>
             <div className='form-container shadow black-transparency-effect'>
 
-                {/* Title */}
-                <Divider className='title-divider' style={{fontSize: '20px', marginBottom: 40}}>Uzupełnij ogłoszenie</Divider>
-
-                <Form name="single-ad"  wrapperCol={{span: 10, offset: 7}} autoComplete='off' initialValues={{remember: true}} onFinish = {onFinish}>
-
-                    {/* Name  field*/}
-                    <Divider>Wyświetlana nazwa <span style={{color: 'red'}}>*</span></Divider>
-                    <Form.Item name="name" rules={nameRules} initialValue={value.userName}>
-                        <Input maxLength={50}></Input>
-                    </Form.Item>
-
-                    {/* E-mail field
-                    <Form.Item name="email" label="E-mail" rules={emailRules}>
-                        <Input maxLength={50}></Input>
-                    </Form.Item> */}
-                          
-                    {/* Description field */}
-                    <Divider>Opis <span style={{color: 'red'}}>*</span></Divider>
-                    <Form.Item name="description" rules={descriptionRules} >
-                        <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} maxLength={200}/>
-                    </Form.Item>
+                <Row justify="center">
                     
-                    {/* Adding tags section */}
-                    <Divider>Tagi</Divider>
+                    {/* Title */}
+                    <Col span={22}><Divider className='title-divider'>Complete the form</Divider>
 
-                    <Form.List name="tags">
-                            {
-                                (fields, {add, remove}) => (
-                                    <>
-                                        {/* Generate added inputs */}
-                                        {fields.map(
-                                            ({key, name, ...restField}) => {
-                                                return (
-                                                    <div key={key} >
-                                                        {/* Tag input */}
-                                                        <Form.Item  className='tag-input' {...restField} rules={tagRules}>
-                                                            <Input  style={{maxWidth: 200}} placeholder='Wprowadź nazwę tagu' maxLength={20}/>
-                                                            {/* Button to delete tag */}
-                                                            <CloseOutlined className='delete-icon' onClick={() => remove(name)} />
-                                                        </Form.Item>
-                                                    </div>  
-                                                );
-                                            }
-                                        )
-                                        }
-                                        {/* Add tag button */}
-                                        <Form.Item>
-                                            <Button block 
-                                                    type="dashed" 
-                                                    onClick={() => add()} 
-                                                    icon={<PlusOutlined />}>
-                                                Dodaj tag
-                                            </Button>
-                                        </Form.Item>
-                                    </>
-                                )
-                            }
-                    </Form.List>
+                        <Row justify='center'>
+                            <Col span={16}>
 
-                    {/* Adding courses section */}
-                    <Divider>Kursy</Divider>
+                                {/* Form */}
+                                <Form
+                                    name="single-ad"  
+                                    wrapperCol={{span: 18}}
+                                    onFinish = {onFinish}>
 
-                    <Form.List name="courses">
-                            {
-                                (fields, {add, remove}) => (
-                                    <>
-                                        {/* Generate added inputs */}
-                                        {fields.map(
-                                            ({key, name, ...restField}) => {
-                                                return (
-                                                    <div key={key} >
-                                                        
-                                                        {/* Tag input */}
-                                                        <Form.Item className='tag-input' {...restField} rules={courseRules}>
-                                                            <Input style={{maxWidth: 200}} placeholder='Wprowadź nazwę kursu' maxLength={50}/>
-                                                            {/* Button to delete tag */}
-                                                            <CloseOutlined  className='delete-icon' onClick={() => remove(name)} />
-                                                        </Form.Item>
-                                                    </div>  
-                                                );
-                                            }
-                                        )
-                                        }
-                                        {/* Add tag button */}
-                                        <Form.Item>
-                                            <Button block 
-                                                    type="dashed" 
-                                                    onClick={() => add()}  
-                                                    icon={<PlusOutlined />}>
-                                                Dodaj kurs
-                                            </Button>
-                                        </Form.Item>
-                                    </>
-                                )
-                            }
-                    </Form.List>
 
-                    {/* Submit button */}
-                    <Form.Item className='button-row'>
-                        <Button style={{minWidth: 100, maxWidth: '50%', width: '100%'}} type="primary" htmlType="submit">Opublikuj</Button>
-                    </Form.Item>
-                </Form>
-                
+                                    {/* Displaying name - label*/}
+                                    <Divider dashed>
+                                        Displaying name <span className='required-color'>*</span>
+                                    </Divider>
+                                    {/* Displaying name - input*/}
+                                    <Form.Item name="name" justify="center" rules={nameRules} initialValue={value.userName}>
+                                        <Input maxLength={50}></Input>
+                                    </Form.Item>
+
+
+                                    {/* Description - label*/}
+                                    <Divider>
+                                        Description <span className='required-color'>*</span>
+                                    </Divider>
+                                    {/* Description - textarea */}
+                                    <Form.Item name="description" justify="center" rules={descriptionRules}>
+                                        <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} maxLength={200}/>
+                                    </Form.Item>
+
+
+                                    {/* Adding tags section */}
+                                    <Divider>
+                                        Tags
+                                    </Divider>
+
+                                    {/* Adding tags functionality */}
+                                    <Form.List name="tags">
+                                        {(fields, {add, remove}) => (
+                                            <>
+                                                {/* Generate added inputs */}
+                                                {fields.map(
+                                                    ({key, name, ...restField}) => {
+                                                        return (
+                                                            <div key={key} >
+
+                                                                {/* Tag input*/}
+                                                                <Form.Item
+                                                                        wrapperCol={{span: 12}}  
+                                                                        justify="center"
+                                                                        rules={tagRules} 
+                                                                        {...restField} >
+
+                                                                    <div className='d-flex justify-content-center align-items-center'>
+                                                                        {/* Input*/}
+                                                                        <Input placeholder='Tag name...' maxLength={20}/>
+                                                                        {/* Button to delete tag */}
+                                                                        <CloseOutlined className='delete-icon' onClick={() => remove(name)} />
+                                                                    </div>
+
+                                                                </Form.Item>
+
+                                                            </div>  
+                                                        );
+                                                    }
+                                                )}
+
+                                                {/* Add tag button */}
+                                                <Form.Item justify="center">
+                                                    <Button block 
+                                                            type="dashed" 
+                                                            onClick={() => add()} 
+                                                            icon={<PlusOutlined />}>
+                                                        Add tag
+                                                    </Button>
+                                                </Form.Item>
+                                            </>
+                                        )}
+                                    </Form.List>
+
+
+                                    {/* Adding courses section */}
+                                    <Divider>
+                                        Courses
+                                    </Divider>
+
+                                    {/* Adding courses functionality */}
+                                    <Form.List name="courses">
+                                        {(fields, {add, remove}) => (
+                                            <>
+                                                {/* Generate added inputs */}
+                                                {fields.map(
+                                                    ({key, name, ...restField}) => {
+                                                        return (
+                                                            <div key={key} >
+                                                                
+                                                                {/* Course input */}
+                                                                <Form.Item  
+                                                                        justify='center'
+                                                                        wrapperCol={{span: 12}}  
+                                                                        rules={courseRules} 
+                                                                        {...restField} >
+
+                                                                    <div className='d-flex justify-content-center align-items-center'>
+                                                                        {/* Input */}
+                                                                        <Input placeholder='Course name...' maxLength={50}/>
+                                                                        {/* Button to delete tag */}
+                                                                        <CloseOutlined className='delete-icon' onClick={() => remove(name)}/>
+                                                                    </div>
+
+                                                                </Form.Item>
+
+                                                            </div>  
+                                                        );
+                                                    }
+                                                )}
+
+                                                {/* Add course button */}
+                                                <Form.Item justify="center">
+                                                    <Button block 
+                                                            type="dashed" 
+                                                            onClick={() => add()}  
+                                                            icon={<PlusOutlined />}>
+                                                        Add course
+                                                    </Button>
+                                                </Form.Item>
+                                            </>
+                                        )}
+                                    </Form.List>
+                                    
+                                    {/* -------------------------- Submit button --------------------------*/}
+                                    <Form.Item
+                                        wrapperCol={{span: 12}} 
+                                        justify='center'>
+                                        
+                                        <Col>
+                                            {/* Submit button */}
+                                            <Button className='w-100 mt-4' type="primary" htmlType="submit">Publish</Button>
+                                        </Col>
+                                    </Form.Item>
+
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>                
             </div>
-            
         </>
     );
 }
