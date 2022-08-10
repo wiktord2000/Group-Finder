@@ -43,6 +43,7 @@ export function AuthProvider({children}){
     }
 
     const logOut = () => {
+        localStorage.removeItem('user');
         return signOut(auth);
     }
 

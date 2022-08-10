@@ -23,7 +23,10 @@ export default function Login(){
         try{
             // Disable the button when processing
             setLoading(true);
-            await logIn(values.email, values.password);
+            let result =  await logIn(values.email, values.password);
+            // Store user data in local storage
+            localStorage.setItem('user', JSON.stringify(result.user));
+            console.log(result.user)
             // Navigate to main page
             navigate('/');
 
@@ -60,7 +63,8 @@ export default function Login(){
             .then((result) => {
                 // The signed-in user info.
                 const user = result.user;
-                console.log(user);
+                // Store user data in local storage
+                localStorage.setItem('user', JSON.stringify(user));
                 // Navigate to main page
                 navigate('/');
 

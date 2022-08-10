@@ -28,6 +28,17 @@ app.get('/', async (req, res) => {
     res.status(200).send(JSON.stringify(singleAds));
 });
 
+// Add single ad
+app.post('/addSingleAd', async (req, res) => {
+
+    // Read user data from body
+    const {name, description, courses, tags} = req.body;
+    // Add user to collection
+    await admin.firestore().collection('singleAds').add({name: name, description: description, courses: courses, tags: tags});
+    // Send response
+    res.status(201).send();
+});
+
 // Exports functions
 exports.singleAdsAPI = functions.region('europe-central2').https.onRequest(app);
 

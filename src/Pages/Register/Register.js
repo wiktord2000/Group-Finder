@@ -38,7 +38,9 @@ function Register(){
         try{
             // Disable the button when processing
             setLoading(true);
-            await signUp(values.email, values.password);
+            let result = await signUp(values.email, values.password);   // I'm not sure that we get the user data after register
+            // Store user data in local storage
+            localStorage.setItem('user', JSON.stringify(result.user));
             // Navigate to main page
             navigate('/');
 
@@ -50,6 +52,7 @@ function Register(){
             else{
                 setErrorMessage("Unidentified error!");
             }
+            console.log(error);
         }
         
         // Enable the button

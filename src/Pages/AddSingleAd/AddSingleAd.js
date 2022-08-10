@@ -3,13 +3,11 @@ import { Input, Form, Button, Divider, Row, Col} from 'antd';
 import React, { useEffect } from 'react';
 import { PlusOutlined , CloseOutlined } from '@ant-design/icons';
 import { SingleAd } from '../../Models/SingleAd';
-import useLocalStorage from '../../CustomHooks/useLocalStorage';
 import ApiService from '../../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 
 function AddAd(){
 
-    const [value, setValue] = useLocalStorage("accountData", "");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,28 +23,28 @@ function AddAd(){
     const nameRules = [
         {
             required: true,
-            message: 'Proszę wprowadź wyświetlaną nazwę',
+            message: 'Please insert the displaying name',
         }
     ];
 
     const descriptionRules = [
         {
             required: true,
-            message: 'Proszę wprowadź opis',
+            message: 'Please add the description',
         }
     ];
 
     const tagRules = [
         { 
             required: true, 
-            message: 'Nie podano nazwy tagu' 
+            message: 'Please insert the tag name' 
         }
     ];
 
     const courseRules = [
         { 
             required: true, 
-            message: 'Nie podano nazwy kursu' 
+            message: 'Please insert the course name' 
         }
     ];
 
@@ -58,7 +56,10 @@ function AddAd(){
         if(!values.tags) values.tags = [];
         if(!values.courses) values.courses = [];
        
-        const singleAd = new SingleAd(value.id, values.name, value.email, values.description, values.tags, values.courses, value.imgURL);
+        const singleAd = new SingleAd(null, values.name, null, values.description, values.tags, values.courses, null);
+
+        // console.log(values);
+
         ApiService.postSingleAd(singleAd)
         .then(response => response.json())
         .then(data => {
@@ -89,13 +90,12 @@ function AddAd(){
                                     wrapperCol={{span: 18}}
                                     onFinish = {onFinish}>
 
-
                                     {/* Displaying name - label*/}
                                     <Divider dashed>
                                         Displaying name <span className='required-color'>*</span>
                                     </Divider>
                                     {/* Displaying name - input*/}
-                                    <Form.Item name="name" justify="center" rules={nameRules} initialValue={value.userName}>
+                                    <Form.Item name="name" justify="center" rules={nameRules}>
                                         <Input maxLength={50}></Input>
                                     </Form.Item>
 
@@ -109,11 +109,8 @@ function AddAd(){
                                         <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} maxLength={200}/>
                                     </Form.Item>
 
-
                                     {/* Adding tags section */}
-                                    <Divider>
-                                        Tags
-                                    </Divider>
+                                    <Divider>Tags</Divider>
 
                                     {/* Adding tags functionality */}
                                     <Form.List name="tags">
@@ -127,6 +124,7 @@ function AddAd(){
 
                                                                 {/* Tag input*/}
                                                                 <Form.Item
+                                                                        name={name}
                                                                         wrapperCol={{span: 12}}  
                                                                         justify="center"
                                                                         rules={tagRules} 
@@ -159,11 +157,8 @@ function AddAd(){
                                         )}
                                     </Form.List>
 
-
                                     {/* Adding courses section */}
-                                    <Divider>
-                                        Courses
-                                    </Divider>
+                                    <Divider>Courses</Divider>
 
                                     {/* Adding courses functionality */}
                                     <Form.List name="courses">
@@ -177,6 +172,7 @@ function AddAd(){
                                                                 
                                                                 {/* Course input */}
                                                                 <Form.Item  
+                                                                        name={name}
                                                                         justify='center'
                                                                         wrapperCol={{span: 12}}  
                                                                         rules={courseRules} 
@@ -219,7 +215,6 @@ function AddAd(){
                                             <Button className='w-100 mt-4' type="primary" htmlType="submit">Publish</Button>
                                         </Col>
                                     </Form.Item>
-
                                 </Form>
                             </Col>
                         </Row>
